@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
+var User = mongoose.model('User');
 var SessionService = require('../services/sessions.js');
 
 var router = express.Router();
