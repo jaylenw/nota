@@ -69,7 +69,7 @@ router.put('/tasks/:id', function(req, res){
     var updatedTask = {}
     if(req.body.title) updatedTask.title = req.body.title;
     if(req.body.body) updatedTask.body = req.body.body;
-    if(req.body.archive) updatedTask.archive = req.body.archive;
+    if(typeof req.body.archive == "boolean") updatedTask.archive = req.body.archive;
 
     var updateCmd = { $set: updatedTask }
 
