@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/tasks', function(req, res, next) {
-  if(!(req.body.token)){
+  if(!(req.query.token)){
       return res.status(412).json({
           msg: "Route requisites not met."
       });
