@@ -73,7 +73,7 @@ router.put('/tasks/:id', function(req, res){
 
     var updateCmd = { $set: updatedTask }
 
-    Task.update(req.params.id, updateCmd).exec(function(err, task){
+    Task.update(matchTask, updateCmd).exec(function(err, task){
       if(err){
         res.status(500).send("Error reading database!");
       } else if(!task) {
