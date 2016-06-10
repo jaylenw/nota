@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Task = new Schema({
+    accountId: {
+        type: String
+    },
     title: {
         type: String
     },
