@@ -113,4 +113,12 @@ router.post('/login', function(req, res, next) {
     });
 });
 
+router.post('/logout', function(req, res, next){
+  SessionService.deleteSession(req.body.token, function(){
+    res.status(200).send("Ok");
+  }, function(){
+    res.status(500).send("Unexpected Error!");
+  });
+})
+
 module.exports = router;
