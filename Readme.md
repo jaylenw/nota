@@ -34,11 +34,9 @@ by identifying the `pid` and killing it by running `forever stop pidNUM` where p
 
 8. This backend allows the user to register, login, logout, create tasks, retrieve tasks, edit tasks, and delete tasks.
 
-###Routes
+#Routes
 
 User Specific
---------------
---------------
 --------------
 
 using "POST" Method
@@ -50,8 +48,6 @@ using"POST" Method
 requires passing "email" and "password" fields in body
 
 Task Specific
--------------
--------------
 -------------
 
 using "GET" Method (Retrieves all Task for a user)
