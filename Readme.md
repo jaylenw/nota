@@ -38,25 +38,29 @@ by identifying the `pid` and killing it by running `forever stop pidNUM` where p
 
 User Specific
 --------------
+--------------
+--------------
 
 using "POST" Method
 `/users/login`
-requires passing email and password fields in body
+requires passing "email" and "password" fields in body
 
 using"POST" Method
 `/users/register`
-requires passing email and password fields in body
+requires passing "email" and "password" fields in body
 
 Task Specific
+-------------
+-------------
 -------------
 
 using "GET" Method (Retrieves all Task for a user)
 `/tasks`
-requires passing in the user token as params
+requires passing in the user "token" as params
 
 using "POST" Method (Creates a Task)
 `/tasks`
-requires passing in title and body fields in the body
+requires passing in "title" and "body" fields in the body
 
 using "PUT" Method (Updates a specific Task)
 `/tasks/:id`
@@ -67,7 +71,7 @@ using "DELETE" Method (Deletes a specific Task)
 requires passing in "id" of a Task as an url parameter and token as a query
 parameter
 
-[Postman](https://www.getpostman.com/) is a great API testing software to testing this backend.
+[Postman](https://www.getpostman.com/) is a great API testing software for testing out this backend.
 
 -------------------------------------------------------------------------------
 
