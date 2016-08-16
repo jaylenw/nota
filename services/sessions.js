@@ -58,8 +58,10 @@ exports.generateSession = function(accountId, type, success, fail) {
 };
 
 //Creates a token and returns the token if successful
-exports.deleteSession = function(tokenId, success, fail) {
-    Session.findById(tokenId).remove(function(err){
+exports.deleteSession = function(token, success, fail) {
+    Session.findOne({
+      token: token
+    }).remove(function(err){
       if(err) fail(err);
       else success();
     });
