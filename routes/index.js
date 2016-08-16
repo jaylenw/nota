@@ -85,6 +85,33 @@ router.put('/tasks/:id', function(req, res){
   });
 });
 
+router.delete('/tasks/:id', function(req, res){
+    if(!(req.query.token)){
+        return res.status(412).send("Precondition failed. Required: token.")
+    }
+
+    validateUser(req, res, function(user){
+      var specificTask = {
+        _id: req.params.id,
+        accountId: user._id
+      }
+
+      Task.findById(specificTask).exec(function(err, specificTask){
+        if(err){
+          res.status(500).send("Error reading databse!");
+        }
+        else if(!specificTask){
+          res.status(404).send("No task with that ID found in your account.");
+        }
+        else {
+          if(specificTask) specificTask.remove();
+          res.status(200).json("ok");
+        }
+      });
+    });
+});
+
+
 function validateUser(req, res, success){
     var token = req.query.token || req.body.token;
     SessionService.validateSession(token, "user", function(accountId) {
