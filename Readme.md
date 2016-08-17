@@ -17,6 +17,7 @@ on the projects' repo linked above.
         sudo ln -s /usr/bin/nodejs /usr/bin/node  
         sudo apt install npm
         sudo npm install -g npm
+        sudo npm install forever -g
 
 2. Clone this repo.
 
