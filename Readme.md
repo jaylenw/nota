@@ -1,6 +1,6 @@
-#TodoDoBackend
+# TodoDoBackend
 
-##Backend for AngularJSTodoApp & IonicTodoApp
+## Backend for AngularJSTodoApp & IonicTodoApp
 
 This reposistory contains the source code that makes up the Backend
 for [AngularJSTodoApp](https://github.com/jaylenw/AngularJsTodoApp) and [IonicTodoApp](https://github.com/jaylenw/IonicTodoApp).
@@ -8,7 +8,7 @@ for [AngularJSTodoApp](https://github.com/jaylenw/AngularJsTodoApp) and [IonicTo
 Installation instructions on this backend are found below and also on the
 on the projects' repo linked above.
 
-##Build, Testing, & Development
+## Build, Testing, & Development
 
 1. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If running a Debian/Ubuntu system and you do not have the packages installed globally, run these commands below:
 
@@ -35,7 +35,7 @@ by identifying the `pid` and killing it by running `forever stop pidNUM` where p
 
 8. This backend allows the user to register, login, logout, create tasks, retrieve tasks, edit tasks, and delete tasks.
 
-#Routes
+# Routes
 
 User Specific
 --------------
