@@ -1,4 +1,4 @@
-# TodoDoBackend
+# Nota (TodoDoBackend)
 
 ## Backend for AngularJSTodoApp & IonicTodoApp
 
@@ -73,3 +73,7 @@ parameter
 -------------------------------------------------------------------------------
 
 Pull request and issues are welcomed.
+
+--------------------------------------------------------------------------------
+
+Special Thanks to [@julianpoy](https://github.com/julianpoy) for making the foundation of this express app. This code base was derived from [here](https://github.com/julianpoy/jaylenBackend).
