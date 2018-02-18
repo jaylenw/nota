@@ -98,7 +98,7 @@ router.delete('/tasks/:id', function(req, res){
 
       Task.findById(specificTask).exec(function(err, specificTask){
         if(err){
-          res.status(500).send("Error reading databse!");
+          res.status(500).send("Error reading database!");
         }
         else if(!specificTask){
           res.status(404).send("No task with that ID found in your account.");
