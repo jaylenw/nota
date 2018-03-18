@@ -1,8 +1,11 @@
-var assert = require('assert');
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1);
+var chai = require('chai');
+var assert = chai.assert;
+
+describe('assert works', function() {
+  describe('test assert', function() {
+    it('should return true', function() {
+      var bool = 'goldfish'
+      assert(bool === 'goldfish');
     });
   });
 });
