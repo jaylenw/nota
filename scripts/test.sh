@@ -10,4 +10,5 @@ export NODE_ENV=test
 echo "NODE_ENV is:"
 echo $NODE_ENV
 
-node bin/www
+# runs unit tests
+./node_modules/mocha/bin/mocha

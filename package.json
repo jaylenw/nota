@@ -1,9 +1,10 @@
 {
-  "name": "jaylenBackend",
+  "name": "nota",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "./scripts/production.sh",
+    "test": "./scripts/test.sh"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -17,5 +18,8 @@
     "mongoose": "^4.4.19",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.4"
   }
 }
