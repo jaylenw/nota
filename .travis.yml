@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "4.8.7"
+
+before_script:
+  - echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+  - sudo apt-get update
+  - sudo apt-get install mongodb -y
+
+script:
+  - npm install
+  - npm test

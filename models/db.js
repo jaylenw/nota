@@ -1,2 +1,12 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/jaylenTasks');
+var bluebird = require('bluebird');
+mongoose.Promise = bluebird;
+
+var databataseURI = 'mongodb://localhost/nota-test';
+
+if (process.env.NODE_ENV === 'production'){
+  databataseURI = 'mongodb://localhost/nota';
+}
+mongoose.connect(databataseURI, {
+  useMongoClient: true
+});
