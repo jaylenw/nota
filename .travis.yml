@@ -10,5 +10,5 @@ before_script:
   - sudo apt-get install mongodb -y
 
 script:
-  - sudo npm install
+  - npm install
   - npm test

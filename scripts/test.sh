@@ -12,4 +12,3 @@ echo $NODE_ENV
 
 # runs unit tests
 ./node_modules/mocha/bin/mocha --exit
-killall node
