@@ -2,6 +2,7 @@ var chai = require('chai');
 var assert = chai.assert;
 var axios = require('axios');
 var app = require('../app.js');
+var cleanDB = require('./clean/drop_db.js');
 
 before(function(done) {
   server = app.listen(3000, done);
@@ -33,3 +34,7 @@ describe('nota tests', function() {
     });
   });
 });
+
+after(function(done) {
+  cleanDB(done);
+})
