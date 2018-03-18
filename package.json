@@ -9,23 +9,23 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
-    "body-parser": "~1.13.2",
-    "cookie-parser": "~1.3.5",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
     "cors": "^2.7.1",
-    "crypto": "0.0.3",
-    "debug": "~2.2.0",
-    "express": "~4.13.1",
+    "crypto": "1.0.1",
+    "debug": "~3.1.0",
+    "express": "~4.16.3",
     "istanbul": "^0.4.5",
     "jade": "~1.11.0",
-    "mongodb": "^2.1.21",
-    "mongoose": "^4.4.19",
-    "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "mongodb": "^3.0.4",
+    "mongoose": "^5.0.10",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
-    "mocha": "^3.5.3",
+    "mocha": "^5.0.4",
     "mocha-lcov-reporter": "^1.3.0"
   }
 }
