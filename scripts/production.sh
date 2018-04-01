@@ -11,3 +11,4 @@ echo "NODE_ENV is:"
 echo $NODE_ENV
 
 forever start bin/www
+# node bin/www # local production testing

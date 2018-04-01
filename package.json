@@ -17,6 +17,7 @@
     "express": "~4.13.1",
     "istanbul": "^0.4.5",
     "jade": "~1.11.0",
+    "moment": "^2.22.0",
     "mongodb": "^2.1.21",
     "mongoose": "^4.4.19",
     "morgan": "~1.6.1",
