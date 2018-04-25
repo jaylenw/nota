@@ -46,6 +46,74 @@ describe('nota tests', function() {
       })
     });
 
+    it('register user (email used again)', function(done) {
+      axiosInstance.post('/users/register', {
+        email: user1_Email,
+        password: user1_Password
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 409);
+        assert(error.response.data.msg === 'Email taken!');
+        done();
+      })
+    });
+
+    it('register user (invalid email address)', function(done) {
+      axiosInstance.post('/users/register', {
+        email: 'test@!@#.com',
+        password: user1_Password
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 406);
+        assert(error.response.data.msg === 'Email is not valid!');
+        done();
+      })
+    });
+
+    it('register user (no password)', function(done) {
+      axiosInstance.post('/users/register', {
+        email: user1_Email,
+        password: ''
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
+    it('register user (no email address)', function(done) {
+      axiosInstance.post('/users/register', {
+        email: '',
+        password: user1_Password
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
     it('create first note', function(done) {
       axiosInstance.post('/tasks', {
         token: user1_Token,
@@ -221,6 +289,74 @@ describe('nota tests', function() {
         console.log(response.data);
         assert(response.status === 200);
         assert(response.data = 'Ok');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('login user (no email address)', function(done) {
+      axiosInstance.post('/users/login', {
+        email: '',
+        password: user1_Password
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
+    it('login user (no password)', function(done) {
+      axiosInstance.post('/users/login', {
+        email: user1_Email,
+        password: ''
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
+    it('login user (incorrect email address)', function(done) {
+      axiosInstance.post('/users/login', {
+        email: 'bad@bad.com',
+        password: user1_Password
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 401);
+        assert(error.response.data.msg === 'Wrong email!');
+        done();
+      })
+    });
+
+    it('login user', function(done) {
+      axiosInstance.post('/users/login', {
+        email: user1_Email,
+        password: user1_Password
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert.exists(response.data.token);
         done();
       })
       .catch(function (error){
