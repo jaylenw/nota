@@ -363,6 +363,73 @@ describe('nota tests', function() {
         console.log(error);
       })
     });
+
+    it('logout user', function(done) {
+      axiosInstance.post('users/logout', {
+        token: user1_Token
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert(response.data = 'Ok');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('forgot user password', function(done) {
+      axiosInstance.post('users/forgot', {
+        email: user1_Email
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert(response.data.msg = 'success. Email has been sent to your address');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    // for user1
+    it('reset user password', function(done) {
+      axiosInstance.post('users/reset', {
+        reset_token: '1111',
+        password: 'newPass'
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert(response.data.msg = 'success. Password has been changed');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('login user', function(done) {
+      axiosInstance.post('/users/login', {
+        email: user1_Email,
+        password: 'newPass'
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert.exists(response.data.token);
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
   });
 });
 

@@ -139,6 +139,16 @@ router.post('/forgot', function(req, res) {
           });
       } else {
           var rtoken = crypto.randomBytes(32).toString('hex');
+
+          // yes yes this is bad, that is why we need
+          // database seeds for testing. I also put this
+          // after generating 32 hex to make sure crypto
+          // package updates won't error out on updated
+          // version. Want that to fail if update breaks
+          // functionality for tests.
+          if (process.env.NODE_ENV === 'test') {
+            rtoken = "1111";
+          }
           console.log(rtoken);
 
           var matchUser = {
