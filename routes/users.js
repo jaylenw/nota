@@ -119,6 +119,94 @@ router.post('/logout', function(req, res, next){
   }, function(){
     res.status(500).send("Unexpected Error!");
   });
-})
+});
+
+router.post('/forgot', function(req, res) {
+  if(!(req.body.email)){ // no email is provided
+      return res.status(412).json({
+          msg: "Route requisites not met."
+      });
+  }
+
+  User.findOne({
+      email: (req.body.email.toLowerCase()).trim()
+    })
+    .select('_id')
+    .exec(function(err, user) {
+      if (!user) {
+          res.status(500).json({
+              msg: "Couldn't search the database for user!"
+          });
+      } else {
+          var rtoken = crypto.randomBytes(32).toString('hex');
+          console.log(rtoken);
+
+          var matchUser = {
+            _id: user._id
+          }
+
+          var updatedUser = {
+            reset_token: rtoken
+          }
+
+          var updateCmd = { $set: updatedUser }
+          User.update(matchUser, updateCmd).exec(function(err, user){
+            if(err){
+              res.status(500).send("Error reading database!");
+            } else if(!user) {
+              res.status(500).send("No user with that ID found in database");
+            } else { //finish implementing logic to send email later
+              res.status(200).send({msg: 'success. Email has been sent to your address'});
+            }
+          });
+      }
+    });
+});
+
+router.post('/reset', function(req, res) {
+  if(!(req.body.reset_token && req.body.password)){ // no token or password provided
+      return res.status(412).json({
+          msg: "Route requisites not met."
+      });
+  }
+
+  User.findOne({
+      reset_token: req.body.reset_token
+    })
+    .select('_id')
+    .exec(function(err, user) {
+      if (!user) {
+          res.status(500).json({
+              msg: "Couldn't search the database for user!"
+          });
+      } else {
+          //Create a random salt
+          var salt = crypto.randomBytes(128).toString('base64');
+          //Create a unique hash from the provided password and salt
+          var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+
+          var matchUser = {
+            _id: user._id
+          }
+
+          var updatedUser = {
+            password: hash,
+            salt: salt,
+            reset_token : ''
+          }
+
+          var updateCmd = { $set: updatedUser }
+          User.update(matchUser, updateCmd).exec(function(err, user){
+            if(err){
+              res.status(500).send("Error reading database!");
+            } else if(!user) {
+              res.status(500).send("No user with that ID found in database");
+            } else { //finish implementing logic to send email later
+              res.status(200).send({msg: 'success. Password has been changed'});
+            }
+          });
+      }
+    });
+});
 
 module.exports = router;
