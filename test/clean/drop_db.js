@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 var bluebird = require('bluebird');
+var config = require('config');
 mongoose.Promise = bluebird;
 
-var databataseURI = 'mongodb://localhost/nota-test';
+var databataseURI = config.get('db.databataseURI');
 
 module.exports = function(done) {
   mongoose.connect(databataseURI, {
@@ -14,6 +15,6 @@ module.exports = function(done) {
     done();
   })
   .catch(function () {
-    console.log('Failed to drop db');
+    console.log('Failed to drop test db');
   });
 }

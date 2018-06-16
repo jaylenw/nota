@@ -1,5 +1,0 @@
-{
-  "db": {
-    "databataseURI": "mongodb://localhost/nota-test"
-  }
-}
