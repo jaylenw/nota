@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var SessionService = require('../services/sessions.js');
 var User = mongoose.model('User');
+var EmailService = require('../services/smtp.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -172,7 +173,7 @@ router.post('/forgot', function(req, res) {
     });
 });
 
-router.post('/reset', function(req, res) {
+router.post('/reset', function(req, res, next) {
   if(!(req.body.reset_token && req.body.password)){ // no token or password provided
       return res.status(412).json({
           msg: "Route requisites not met."
@@ -210,8 +211,8 @@ router.post('/reset', function(req, res) {
               res.status(500).send("Error reading database!");
             } else if(!user) {
               res.status(500).send("No user with that ID found in database");
-            } else { //finish implementing logic to send email later
-              res.status(200).send({msg: 'success. Password has been changed'});
+            } else {
+              EmailService.reset_email(req, res, next);
             }
           });
       }
