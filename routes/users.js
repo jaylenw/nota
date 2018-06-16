@@ -90,7 +90,6 @@ router.post('/login', function(req, res, next) {
                 msg: "Wrong email!"
             });
         } else {
-          console.log(user.salt)
             //Hash the requested password and salt
             var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512);
 
