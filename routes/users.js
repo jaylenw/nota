@@ -173,7 +173,7 @@ router.post('/forgot', function(req, res) {
     });
 });
 
-router.post('/reset', function(req, res, next) {
+router.post('/reset', function(req, res) {
   if(!(req.body.reset_token && req.body.password)){ // no token or password provided
       return res.status(412).json({
           msg: "Route requisites not met."
@@ -212,7 +212,7 @@ router.post('/reset', function(req, res, next) {
             } else if(!user) {
               res.status(500).send("No user with that ID found in database");
             } else {
-              EmailService.reset_email(req, res, next);
+              EmailService.reset_email(res);
             }
           });
       }
