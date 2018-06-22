@@ -3,7 +3,7 @@
 ## Backend for AngularJSTodoApp & IonicTodoApp
 
 This reposistory contains the source code that makes up the Backend
-for [AngularJSTodoApp](https://github.com/jaylenw/AngularJsTodoApp) and [IonicTodoApp](https://github.com/jaylenw/IonicTodoApp).
+for [AngularJSTodoApp](https://github.com/jaylenw/AngularJsTodoApp), [IonicTodoApp](https://github.com/jaylenw/IonicTodoApp), and [ElectronTodoApp](https://github.com/jaylenw/ElectronTodoApp).
 
 Installation instructions on this backend are found below and also on the
 on the projects' repo linked above.
