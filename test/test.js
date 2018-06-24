@@ -4,9 +4,10 @@ var axios = require('axios');
 var moment = require('moment');
 var app = require('../app.js');
 var cleanDB = require('./clean/drop_db.js');
+var config = require('config');
 
 var user1_Token = '';
-var user1_Email = 'testing1@test.com';
+var user1_Email = config.get('test_email');
 var user1_Password = 'test123';
 var user1_AccountID = '';
 
@@ -398,7 +399,7 @@ describe('nota tests', function() {
 
     // for user1
     it('reset user password', function(done) {
-      axiosInstance.post('users/reset', {
+      axiosInstance.post('users/reset/' + user1_Email, {
         reset_token: '1111',
         password: 'newPass'
       })

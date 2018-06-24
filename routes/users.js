@@ -4,14 +4,15 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var SessionService = require('../services/sessions.js');
 var User = mongoose.model('User');
-var EmailService = require('../services/smtp.js');
+var EmailService = require('../services/mailgun.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('Not enabled yet :)');
 });
 
-router.post('/register', function(req, res) {
+router.post('/register', function(req, res, next) {
+    var generatedToken;
     if(!(req.body.email &&
         req.body.password)){
         return res.status(412).json({
@@ -54,19 +55,26 @@ router.post('/register', function(req, res) {
                       });
                     } else {
                         SessionService.generateSession(newUser._id, "user", function(token){
-                            //All good, give the user their token
+
+                            // All good, give the user their token
                             res.status(201).json({
                                 token: token
                             });
+                            req.body.email = cleanEmail;
+                            next(); // sent respose but now would like to send email
+                            // it is okay to call email after the response as it is not
+                            // breaking the flow for the user. And technically
+                            // you can call next() after sending a response
                         }, function(err){
                             res.status(err.status).json(err);
                         });
                     }
                 });
+
             }
           });
     }
-});
+}, EmailService.welcome_email);
 
 router.post('/login', function(req, res, next) {
     if(!(req.body.email &&
@@ -121,15 +129,16 @@ router.post('/logout', function(req, res, next){
   });
 });
 
-router.post('/forgot', function(req, res) {
+router.post('/forgot', function(req, res, next) {
+
   if(!(req.body.email)){ // no email is provided
       return res.status(412).json({
           msg: "Route requisites not met."
       });
   }
-
+  var modified_email = (req.body.email.toLowerCase()).trim();
   User.findOne({
-      email: (req.body.email.toLowerCase()).trim()
+      email: modified_email
     })
     .select('_id')
     .exec(function(err, user) {
@@ -165,16 +174,18 @@ router.post('/forgot', function(req, res) {
               res.status(500).send("Error reading database!");
             } else if(!user) {
               res.status(500).send("No user with that ID found in database");
-            } else { //finish implementing logic to send email later
-              res.status(200).send({msg: 'success. Email has been sent to your address'});
+            } else {
+              req.body.email = modified_email;
+              req.body.rtoken = rtoken;
+              next();
             }
           });
       }
     });
-});
+}, EmailService.forgot_email);
 
-router.post('/reset', function(req, res) {
-  if(!(req.body.reset_token && req.body.password)){ // no token or password provided
+router.post('/reset/:email', function(req, res, next) {
+  if(!(req.body.reset_token && req.body.password && req.params.email)){ // no token,password, or email provided
       return res.status(412).json({
           msg: "Route requisites not met."
       });
@@ -212,11 +223,12 @@ router.post('/reset', function(req, res) {
             } else if(!user) {
               res.status(500).send("No user with that ID found in database");
             } else {
-              EmailService.reset_email(res);
+              next();
+              console.log('Proceeding to call confirm_pwd_email function');
             }
           });
       }
     });
-});
+}, EmailService.confirm_pwd_email);
 
 module.exports = router;
