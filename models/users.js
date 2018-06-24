@@ -10,6 +10,9 @@ var User = new Schema({
     },
     salt: {
         type: String
+    },
+    reset_token: {
+        type: String
     }
 });
 

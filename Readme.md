@@ -13,7 +13,7 @@ on the projects' repo linked above.
 1. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If running a Debian/Ubuntu system and you do not have the packages installed globally, run these commands below:
 
         sudo apt update  
-        sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -  
+        sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         sudo apt install nodejs  
         sudo ln -s /usr/bin/nodejs /usr/bin/node
         sudo npm install forever -g

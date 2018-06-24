@@ -4,9 +4,10 @@ var axios = require('axios');
 var moment = require('moment');
 var app = require('../app.js');
 var cleanDB = require('./clean/drop_db.js');
+var config = require('config');
 
 var user1_Token = '';
-var user1_Email = 'testing1@test.com';
+var user1_Email = config.get('test_email');
 var user1_Password = 'test123';
 var user1_AccountID = '';
 
@@ -351,6 +352,143 @@ describe('nota tests', function() {
       axiosInstance.post('/users/login', {
         email: user1_Email,
         password: user1_Password
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert.exists(response.data.token);
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('logout user', function(done) {
+      axiosInstance.post('users/logout', {
+        token: user1_Token
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert(response.data = 'Ok');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('forgot user password', function(done) {
+      axiosInstance.post('users/forgot', {
+        email: user1_Email
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert(response.data.msg = 'success. Email has been sent to your address');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('forgot user password (no email provided)', function(done) {
+      axiosInstance.post('users/forgot', {
+        email: ''
+      })
+      .then(function (response) {
+        return;
+      })
+      .catch(function (error){
+        console.log(error);
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
+    // for user1
+    it('reset user password', function(done) {
+      axiosInstance.post('users/reset/' + user1_Email, {
+        reset_token: '1111',
+        password: 'newPass'
+      })
+      .then(function (response) {
+        console.log(response.status);
+        console.log(response.data);
+        assert(response.status === 200);
+        assert(response.data.msg = 'success. Password has been changed');
+        done();
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+    });
+
+    it('reset user password (empty reset token)', function(done) {
+      axiosInstance.post('users/reset/' + user1_Email, {
+        reset_token: '',
+        password: 'newPass'
+      })
+      .then(function (response) {
+        return
+      })
+      .catch(function (error){
+        console.log(error);
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
+    it('reset user password (empty password)', function(done) {
+      axiosInstance.post('users/reset/' + user1_Email, {
+        reset_token: '1111',
+        password: ''
+      })
+      .then(function (response) {
+        return
+      })
+      .catch(function (error){
+        console.log(error);
+        console.log(error.response.status);
+        console.log(error.response.data);
+        assert(error.response.status === 412);
+        assert(error.response.data.msg === 'Route requisites not met.');
+        done();
+      })
+    });
+
+    // below makes us realize that when a invalid route is hit
+    // we need to have a better respose error
+    // it('reset user password (no email)', function(done) {
+    //   axiosInstance.post('users/reset/', {
+    //     reset_token: '1111',
+    //     password: 'newPass'
+    //   })
+    //   .then(function (response) {
+    //     return
+    //   })
+    //   .catch(function (error){
+    //     console.log(error);
+    //     assert(error.response.status === 404);
+    //     done();
+    //   })
+    // });
+
+    it('login user', function(done) {
+      axiosInstance.post('/users/login', {
+        email: user1_Email,
+        password: 'newPass'
       })
       .then(function (response) {
         console.log(response.status);
