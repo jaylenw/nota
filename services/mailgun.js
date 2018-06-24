@@ -16,7 +16,8 @@ module.exports.forgot_email = function(req, res) {
       console.log('A forgot email was sent.');
       res.status(200).send({msg: 'success. Email has been sent to your address'});
     }).catch(function(err){
-      console.log(err);
+      console.log(err); // administrator should look at the console
+      res.status(500).send({msg: 'failed. An error occured with the email service sending the email.'});
     });
   } else {
     res.status(200).send({msg: 'success. Email has been sent to your address'});
@@ -33,6 +34,7 @@ module.exports.confirm_pwd_email = function(req, res) {
       res.status(200).send({msg: 'success. Password has been changed'});
     }).catch(function(err){
       console.log(err);
+      res.status(500).send({msg: 'failed. An error occured with the email service sending the email.'});
     });
   } else {
     res.status(200).send({msg: 'success. Password has been changed'});
@@ -49,6 +51,7 @@ module.exports.welcome_email = function(req, res) {
       console.log('Welcome email has been sent.');
     }).catch(function(err){
       console.log(err);
+      res.status(500).send({msg: 'failed. An error occured with the email service sending the email.'});
     });
   }
 }
