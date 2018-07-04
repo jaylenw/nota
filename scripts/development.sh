@@ -10,4 +10,4 @@ echo "NODE_ENV is: "$NODE_ENV
 export DATABASEURI=mongodb://localhost/nota-dev
 echo "Mongodb database URI is: "$DATABASEURI
 
-node bin/www # local production testing
+node bin/www # local development testing
