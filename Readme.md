@@ -29,11 +29,17 @@ on the projects' repo linked above.
 
 1. Run `./scripts/test.sh` to run the unit tests for Nota.
 
+![](https://github.com/jaylenw/nota/raw/master/screenshots/tests.gif)
+
 2. After running the tests, you will see a coverage summary of the tests informing
-you what tests passed or not.
+you what tests passed or not. Example in image below.
+
+![](https://github.com/jaylenw/nota/raw/master/screenshots/coverage-summary.png)
 
 3. You may also open `coverage/nota/index.html` file to see a break down of coverage
-for every file in a report.
+for every file in a report. Example in image below.
+
+![](https://github.com/jaylenw/nota/raw/master/screenshots/coverage-report.png)
 
 4. Running the unit tests and having everything passing is an excellent indicator
 that your system has all the dependencies installed.
@@ -95,7 +101,9 @@ sudo service mongodb start
 
 # Routes
 
-This backend allows the user to register, login, logout, create tasks, retrieve tasks, edit tasks, and delete tasks.
+This backend allows the user to register, login, logout, reset password, create tasks, retrieve tasks, edit tasks, and delete tasks.
+
+![](https://github.com/jaylenw/nota/raw/master/screenshots/current-routes.png)
 
 -------------------------------------------------------------------------------
 
