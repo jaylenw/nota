@@ -155,7 +155,7 @@ router.post('/forgot', function(req, res, next) {
           // package updates won't error out on updated
           // version. Want that to fail if update breaks
           // functionality for tests.
-          if (process.env.NODE_ENV === 'test') {
+          if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
             rtoken = "1111";
           }
           console.log(rtoken);

@@ -5,9 +5,9 @@ pwd
 
 cd $notaDirectory
 
-export NODE_ENV=production
+export NODE_ENV=development
 echo "NODE_ENV is: "$NODE_ENV
-export DATABASEURI=mongodb://localhost/nota
+export DATABASEURI=mongodb://localhost/nota-dev
 echo "Mongodb database URI is: "$DATABASEURI
 
-forever start bin/www
+node bin/www # local development testing
