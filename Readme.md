@@ -99,6 +99,37 @@ mongod --repair
 sudo service mongodb start
 ```
 
+## Emails w/ Mailgun
+
+By default, emails are deactivated in Nota. Unit tests will run fine without sending
+emails unless you activate Nota to send emails. To activate emails, you must do the
+following below for testing:
+
+```bash
+export ACTIVATE_EMAIL=true
+export MAILGUN_API_KEY=<"your mailgun api key value">
+export MAILGUN_DOMAIN=<"your mailgun domain value">
+export TEST_EMAIL=<"your verified test email">
+```
+
+Running tests after activating emails and providing the correct test email,
+emails will be sent to your inbox if you have configured everything correctly
+with Mailgun.
+
+When you have set Nota up for production, provide the necessary information as
+above, as well, export your reset uri.
+
+```bash
+export RESET_URI=<"your determined reset uri">
+```
+
+If you would like to change the subject or content of the emails being sent, you
+may do so in `config/default.js`.
+
+I recommend testing sending emails to yourself in Mailgun's sandbox mode before
+implementing emails for production. You may find more information about [Mailgun](https://www.mailgun.com/)
+on it's site.
+
 # Routes
 
 This backend allows the user to register, login, logout, reset password, create tasks, retrieve tasks, edit tasks, and delete tasks.
@@ -106,10 +137,14 @@ This backend allows the user to register, login, logout, reset password, create 
 ![](https://github.com/jaylenw/nota/raw/master/screenshots/current-routes.png)
 
 -------------------------------------------------------------------------------
+## Contributing
 
 Pull request and issues are welcomed. Please make sure you are able to run the
 unit tests with all passing before raising a PR. Add or modify unit tests sensibly
-if needed. As well, be descriptive in your PR description. Thank you! :)
+if needed. As well, be descriptive in your PR description and tag any relevant issues.
+Before making changes for a pull request, create or note an issue first, and use the
+issue number to create a new branch with the issue number in the branch name
+(ex. ghi-{issuenumber}, ghi-22} to include your work in. Thank you! :)
 
 --------------------------------------------------------------------------------
 
