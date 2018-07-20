@@ -150,6 +150,6 @@ issue number to create a new branch with the issue number in the branch name
 
 --------------------------------------------------------------------------------
 
-Special Thanks to [@julianpoy](https://github.com/julianpoy) for making the foundation of this express app. This code base was derived from [here](https://github.com/julianpoy/jaylenBackend).
+Special Thanks to [@julianpoy](https://github.com/julianpoy) for making the foundation of this express app. This code base was derived from [here](https://github.com/julianpoy/jaylenBackend). Special Thanks to [@cheriejw](https://github.com/cheriejw) for providing Nota's logo.
 
 Made with ♥ in Los Angeles & Long Beach CA.
