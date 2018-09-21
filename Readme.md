@@ -25,7 +25,12 @@ on the projects' repo linked above.
 3. In the root of the project folder, run `npm install`.
 
 4. Next, install mongodb on your system globally and have it running. If on a Ubuntu/Debian system, you would run
-   `sudo apt install mongodb`.
+
+   ```
+   echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+   sudo apt-get update
+   sudo apt-get install mongodb -y
+   ```
 
 ## Testing
 
