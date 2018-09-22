@@ -1,5 +1,5 @@
 module.exports = {
   "db": {
-    "databataseURI": process.env.DATABASEURI || "mongodb://localhost/nota"
+    "databataseURI": process.env.DATABASEURI
   }
 }
