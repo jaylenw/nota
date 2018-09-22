@@ -8,6 +8,11 @@ before_script:
   - echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
   - sudo apt-get update
   - sudo apt-get install mongodb -y
+  - mongo < test-create-admin-user-mongo.js
+  - sudo service mongodb stop
+  - sudo echo "auth = true" >> /etc/mongodb.conf
+  - sudo service mongodb start
+  - mongo -u "test" -p "test" --authenticationDatabase "admin" < test-create-db-user-mongo.js
 
 script:
   - npm install
