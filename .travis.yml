@@ -8,14 +8,14 @@ before_script:
   - echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
   - sudo apt-get update
   - sudo apt-get install mongodb -y
-  - "mongo admin --eval 'db.createUser({user: "test",pwd: "test",roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]});'"
+  - mongo admin --eval 'db.createUser({user:"test",pwd:"test",roles:[{role:"userAdminAnyDatabase",db:"admin"},"readWriteAnyDatabase"]});'
   - sudo service mongodb stop
   - sudo bash -c "echo 'auth = true' >> /etc/mongodb.conf"
   - sudo service mongodb start
   - cat /var/log/mongodb/mongodb.log
   - ls /var/lib/mongodb/
   - sleep 15
-  - "mongo nota-test -u "test" -p "test" --authenticationDatabase "admin" --eval 'db.createUser({user: "nota-test",pwd: "nota-test",roles: [ "readWrite"]});'"
+  - mongo nota-test -u "test" -p "test" --authenticationDatabase "admin" --eval 'db.createUser({user:"nota-test",pwd:"nota-test",roles:["readWrite"]});'
 
 script:
   - npm install
