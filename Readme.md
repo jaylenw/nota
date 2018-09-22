@@ -34,9 +34,9 @@ on the projects' repo linked above.
 
 ## Setting up authentication with MongoDB
 
-Mandatory for Production Environment, optional for tests and development.
+Mandatory for Production Environment, optional for test and development.
 By default, code in Nota expects authentication to be handle for test and development
-environment. To use test and development environment without mongodb authentication,
+environments. To use test and development environment without mongodb authentication,
 go to `scripts/test.sh` and `scripts/development.sh` and comment out the line
 exporting the `DATABASEURI`.
 
@@ -65,7 +65,7 @@ db.createUser(
 4.) Go to your `mongodb.conf` file and uncomment the line `#auth = true`. Save
 the file.
 
-5.) sudo service mongodb restart
+5.) Run `sudo service mongodb restart`
 
 6.) Login as admin and connect to authentication database.
 `mongo -u "root" -p "<your-own-password>" --authenticationDatabase "admin"`
@@ -74,9 +74,10 @@ the file.
 The username and password in `scripts/test.sh` and `scripts/development.sh`
 can be used for reference for the commands below.
 
- `use nota-test`
+ Run `use nota-test`, where nota-test is the database.
 
-```db.createUser(
+```
+db.createUser(
   {
    user: "nota-test",
    pwd: "nota-test",
