@@ -10,7 +10,7 @@ before_script:
   - sudo apt-get install mongodb -y
   - mongo < test-create-admin-user-mongo.js
   - sudo service mongodb stop
-  - sudo echo "auth = true" >> /etc/mongodb.conf
+  - sudo bash -c "echo 'auth = true' >> /etc/mongodb.conf"
   - sudo service mongodb start
   - mongo -u "test" -p "test" --authenticationDatabase "admin" < test-create-db-user-mongo.js
 
