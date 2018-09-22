@@ -12,7 +12,7 @@ before_script:
   - sudo service mongodb stop
   - sudo bash -c "echo 'auth = true' >> /etc/mongodb.conf"
   - sudo service mongodb start
-  - mongo -u "test" -p "test" --authenticationDatabase "admin" < test-create-db-user-mongo.js
+  - mongo test-create-db-user-mongo.js -u "test" -p "test" --authenticationDatabase "admin"
 
 script:
   - npm install
