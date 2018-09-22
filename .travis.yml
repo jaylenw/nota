@@ -14,6 +14,7 @@ before_script:
   - sudo service mongodb start
   - cat /var/log/mongodb/mongodb.log
   - ls /var/lib/mongodb/
+  - sleep 15
   - mongo -u "test" -p "test" --authenticationDatabase "admin" < test-create-db-user-mongo.js
 
 script:
