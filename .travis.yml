@@ -12,7 +12,8 @@ before_script:
   - sudo service mongodb stop
   - sudo bash -c "echo 'auth = true' >> /etc/mongodb.conf"
   - sudo service mongodb start
-  - mongo test-create-db-user-mongo.js -u "test" -p "test" --authenticationDatabase "admin"
+  - cat /var/log/mongodb/mongodb.log
+  - mongo -u "test" -p "test" --authenticationDatabase "admin" < test-create-db-user-mongo.js
 
 script:
   - npm install
