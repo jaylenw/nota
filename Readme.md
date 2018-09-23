@@ -35,10 +35,14 @@ on the projects' repo linked above.
 ## Setting up authentication with MongoDB
 
 Mandatory for Production Environment, optional for test and development.
-By default, code in Nota expects authentication to be handle for test and development
-environments. To use test and development environment without mongodb authentication,
-go to `scripts/test.sh` and `scripts/development.sh` and comment out the line
+By default, code in Nota does not expect authentication to be handled for test and development
+environments. To use test and development environment with mongodb authentication,
+go to `scripts/test.sh` and `scripts/development.sh` and make modifications to the line
 exporting the `DATABASEURI`.
+
+Note: When dropping collections or databases with a new user attached to it, that
+new user may not be able to drop the database. Consult MongoDB documentation for
+more info.
 
 **Note, in production, please use a unique username and strong password
 for everything.**
