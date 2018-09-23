@@ -75,8 +75,8 @@ the file.
 `mongo -u "root" -p "<your-own-password>" --authenticationDatabase "admin"`
 
 7.) Specify the database you would like to enable authentication for.
-The username and password in `scripts/test.sh` and `scripts/development.sh`
-can be used for reference for the commands below.
+The username and password URI in `scripts/production.sh` can be used for reference
+for the commands below.
 
  Run `use nota-test`, where nota-test is the database.
 
