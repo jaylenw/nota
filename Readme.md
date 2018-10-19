@@ -12,6 +12,9 @@ on the projects' repo linked above.
 
 ## Build
 
+*Pro-tip*: A `vagrantfile` for Nota exists [here](https://github.com/jaylenw/VagrantBoxes/tree/master/Nota) if you would like
+to use it to quickly get your development environment setup.
+
 1. This guide assumes you are running a 16.04 LTS 64 bit Ubuntu system. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If you do not have the packages installed globally, run these commands below:
 
         sudo apt update  
