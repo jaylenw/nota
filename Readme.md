@@ -12,7 +12,7 @@ on the projects' repo linked above.
 
 ## Build
 
-1. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If running a Debian/Ubuntu system and you do not have the packages installed globally, run these commands below:
+1. This guide assumes you are running a 16.04 LTS 64 bit Ubuntu system. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If you do not have the packages installed globally, run these commands below:
 
         sudo apt update  
         sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -24,7 +24,8 @@ on the projects' repo linked above.
 
 3. In the root of the project folder, run `npm install`.
 
-4. Next, install mongodb on your system globally and have it running. If on a Ubuntu/Debian system, you would run
+4. Next, install mongodb on your system globally and have it running. You would run
+the commands below.
 
    ```
    echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
