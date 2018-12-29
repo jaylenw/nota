@@ -9,6 +9,7 @@ services:
       - COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
     depends_on:
       - "mongo"
+    container_name: nota-backend
   mongo:
     build:
       context: .
@@ -16,3 +17,4 @@ services:
     # image: "nota-db:latest"
     ports:
      - "27018:27018"
+    container_name: nota-mongodb

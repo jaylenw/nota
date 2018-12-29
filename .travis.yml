@@ -16,6 +16,7 @@ before_install:
 
 install:
   # For now, build containers with docker and docker compose
+  # passing in environment variable to send coverage report
   - touch .env
   - echo "COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}" > .env
   - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated"
@@ -23,10 +24,11 @@ install:
 
 script:
   # For now, make sure containers can start successfully and pass unit tests
-  - sudo docker-compose up
+  # exit code will be obtained from nota service and shutdown other containers
+  - sudo docker-compose up --exit-code-from nota
   - sudo docker-compose ps
 
-after_script:
-  # For now, make sure containers can shutdown gracefully
-  - sudo docker-compose down
-  - sudo docker-compose ps
+# after_script:
+#   # For now, make sure containers can shutdown gracefully
+#   - sudo docker-compose down
+#   - sudo docker-compose ps
