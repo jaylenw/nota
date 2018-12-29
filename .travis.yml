@@ -16,6 +16,8 @@ before_install:
 
 install:
   # For now, build containers with docker and docker compose
+  - touch .env
+  - echo "COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}" > .env
   - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated"
   - sudo docker-compose build
 

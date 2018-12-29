@@ -6,6 +6,7 @@ services:
      - "3000:3000"
     environment:
       - DATABASEURI=mongodb://mongo/nota-test
+      - COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
     depends_on:
       - "mongo"
   mongo:
