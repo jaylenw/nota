@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nota:
+    build: .
+    ports:
+     - "3000:3000"
+    environment:
+      - DATABASEURI=mongodb://mongo/nota-test
+    depends_on:
+      - "mongo"
+  mongo:
+    build:
+      context: .
+      dockerfile: Dockerfile-mongodb
+    # image: "nota-db:latest"
+    ports:
+     - "27018:27018"

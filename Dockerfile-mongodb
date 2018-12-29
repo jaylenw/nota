@@ -1,0 +1,17 @@
+FROM ubuntu:16.04
+
+RUN apt update -y && apt full-upgrade -y && \
+    echo 'deb [trusted=yes] http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list && \
+    apt update && apt install mongodb -y;
+
+# create default data directory
+RUN mkdir -p /data/db
+
+# Expose default port
+EXPOSE 27017
+
+# Default port to execute the entrypoint (MongoDB)
+# CMD ["--port 27017"]
+
+# Set default container command
+ENTRYPOINT usr/bin/mongod
