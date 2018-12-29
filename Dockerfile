@@ -1,6 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu16.04-updated
 
-RUN apt update -y && apt full-upgrade -y && apt install curl -y && \
+RUN apt install curl -y && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     apt install nodejs -y;
 

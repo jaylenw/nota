@@ -1,7 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu16.04-updated
 
-RUN apt update -y && apt full-upgrade -y && \
-    echo 'deb [trusted=yes] http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list && \
+RUN echo 'deb [trusted=yes] http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list && \
     apt update && apt install mongodb -y;
 
 # create default data directory
