@@ -8,7 +8,6 @@ cd $notaDirectory
 
 export NODE_ENV=test
 echo "NODE_ENV is: "$NODE_ENV
-export DATABASEURI=mongodb://localhost/nota-test
 echo "Mongodb database URI is: "$DATABASEURI
 
 # runs unit tests and coverage
