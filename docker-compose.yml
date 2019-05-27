@@ -20,5 +20,8 @@ services:
       dockerfile: Dockerfile-mongodb
     # image: "nota-db:latest"
     ports:
+     - "27017:27017"
      - "27018:27018"
     container_name: nota-mongodb
+    volumes:
+      - ./database_vol_dir:/data/db
