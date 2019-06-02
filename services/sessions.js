@@ -1,10 +1,10 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
 	crypto = require('crypto'),
 	Session = mongoose.model('Session');
 
 //Checks if a token exists, and returns the corrosponding accountId
 exports.validateSession = function(token, type, success, fail) {
-	var query;
+	let query;
 	if(typeof type == 'string'){
 		query = {
 			token: token,
@@ -38,7 +38,7 @@ exports.validateSession = function(token, type, success, fail) {
 //Creates a token and returns the token if successful
 exports.generateSession = function(accountId, type, success, fail) {
 	//Create a random token
-	var token = crypto.randomBytes(48).toString('hex');
+	let token = crypto.randomBytes(48).toString('hex');
 	//New session!
 	new Session({
 		accountId: accountId,

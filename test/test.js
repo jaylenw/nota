@@ -1,21 +1,21 @@
-var chai = require('chai');
-var assert = chai.assert;
-var axios = require('axios');
-var moment = require('moment');
-var app = require('../app.js');
-var db = require('../models/db');
-var cleanDB = require('./clean/drop_db.js');
-var config = require('config');
+const chai = require('chai');
+const assert = chai.assert;
+const axios = require('axios');
+const moment = require('moment');
+const app = require('../app.js');
+const db = require('../models/db');
+const cleanDB = require('./clean/drop_db.js');
+const config = require('config');
 
-var user1_Token = '';
-var user1_Email = config.get('test_email');
-var user1_Password = 'test123';
-var user1_AccountID = '';
+let user1_Token = '';
+let user1_Email = config.get('test_email');
+let user1_Password = 'test123';
+let user1_AccountID = '';
 
-var note1_Title = 'note 1 title';
-var note1_Body = 'note 1 body';
-var note1_ID = '';
-var note1_Archive = false;
+let note1_Title = 'note 1 title';
+let note1_Body = 'note 1 body';
+let note1_ID = '';
+let note1_Archive = false;
 
 before(function(done) {
 	this.timeout(0); // disable mocha's default timeout
@@ -29,7 +29,7 @@ before(function(done) {
 
 describe('nota tests', function() {
 
-	var axiosInstance = axios.create({
+	let axiosInstance = axios.create({
 		baseURL: 'http://0.0.0.0:3000',
 		timeout: 1000
 	});

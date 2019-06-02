@@ -1,16 +1,16 @@
-var mongoose = require('mongoose');
-var bluebird = require('bluebird');
-var config = require('config');
+const mongoose = require('mongoose');
+const bluebird = require('bluebird');
+const config = require('config');
 mongoose.Promise = bluebird;
 
-var databataseURI = config.get('db.databataseURI');
+let databataseURI = config.get('db.databataseURI');
 
 function verifiedConnectionToDB () {
 	return new Promise(function(resolve, reject) {
-		var isConnected = false;
-		var counter = 0;
-		var limit = 5;
-		var timerObj = setInterval(function () {
+		let isConnected = false;
+		let counter = 0;
+		let limit = 5;
+		let timerObj = setInterval(function () {
 			mongoose.connect(databataseURI, {
 				useMongoClient: true
 			}).then(function(msg) {

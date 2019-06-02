@@ -1,10 +1,9 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var Task = mongoose.model('Task');
-var User = mongoose.model('User');
-var SessionService = require('../services/sessions.js');
-
-var router = express.Router();
+const express = require('express');
+const mongoose = require('mongoose');
+const Task = mongoose.model('Task');
+const User = mongoose.model('User');
+const SessionService = require('../services/sessions.js');
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -61,17 +60,17 @@ router.put('/tasks/:id', function(req, res){
 	}
 
 	validateUser(req, res, function(user){
-		var matchTask = {
+		let matchTask = {
 			_id: req.params.id,
 			accountId: user._id
 		};
 
-		var updatedTask = {};
+		let updatedTask = {};
 		if(req.body.title) updatedTask.title = req.body.title;
 		if(req.body.body) updatedTask.body = req.body.body;
 		if(typeof req.body.archive == 'boolean') updatedTask.archive = req.body.archive;
 
-		var updateCmd = { $set: updatedTask };
+		let updateCmd = { $set: updatedTask };
 
 		Task.update(matchTask, updateCmd).exec(function(err, task){
 			if(err){
@@ -91,7 +90,7 @@ router.delete('/tasks/:id', function(req, res){
 	}
 
 	validateUser(req, res, function(user){
-		var specificTask = {
+		let specificTask = {
 			_id: req.params.id,
 			accountId: user._id
 		};
@@ -113,7 +112,7 @@ router.delete('/tasks/:id', function(req, res){
 
 
 function validateUser(req, res, success){
-	var token = req.query.token || req.body.token;
+	let token = req.query.token || req.body.token;
 	SessionService.validateSession(token, 'user', function(accountId) {
 		User.findById(accountId)
 			.select('name email')

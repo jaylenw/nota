@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var crypto = require('crypto');
-var SessionService = require('../services/sessions.js');
-var User = mongoose.model('User');
-var EmailService = require('../services/mailgun.js');
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const crypto = require('crypto');
+const SessionService = require('../services/sessions.js');
+const User = mongoose.model('User');
+const EmailService = require('../services/mailgun.js');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -19,8 +19,8 @@ router.post('/register', function(req, res, next) {
 		});
 	}
 
-	var cleanEmail = (req.body.email.toLowerCase()).trim();
-	var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+	let cleanEmail = (req.body.email.toLowerCase()).trim();
+	let emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
 	if (!emailRegex.test(cleanEmail)) {
 		res.status(406).json({
 			msg: 'Email is not valid!'
@@ -38,9 +38,9 @@ router.post('/register', function(req, res, next) {
 					});
 				} else {
 					//Create a random salt
-					var salt = crypto.randomBytes(128).toString('base64');
+					let salt = crypto.randomBytes(128).toString('base64');
 					//Create a unique hash from the provided password and salt
-					var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+					let hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
 					//Create a new user with the assembled information
 					User({
 						email: cleanEmail,
@@ -99,7 +99,7 @@ router.post('/login', function(req, res) {
 				});
 			} else {
 				//Hash the requested password and salt
-				var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512);
+				let hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512);
 
 				//Compare to stored hash
 				if (hash == user.password) {
@@ -135,7 +135,7 @@ router.post('/forgot', function(req, res, next) {
 			msg: 'Route requisites not met.'
 		});
 	}
-	var modified_email = (req.body.email.toLowerCase()).trim();
+	let modified_email = (req.body.email.toLowerCase()).trim();
 	User.findOne({
 		email: modified_email
 	})
@@ -146,7 +146,7 @@ router.post('/forgot', function(req, res, next) {
 					msg: 'Couldn\'t search the database for user!'
 				});
 			} else {
-				var rtoken = crypto.randomBytes(32).toString('hex');
+				let rtoken = crypto.randomBytes(32).toString('hex');
 
 				// yes yes this is bad, that is why we need
 				// database seeds for testing. I also put this
@@ -159,15 +159,15 @@ router.post('/forgot', function(req, res, next) {
 				}
 				console.log(rtoken);
 
-				var matchUser = {
+				let matchUser = {
 					_id: user._id
 				};
 
-				var updatedUser = {
+				let updatedUser = {
 					reset_token: rtoken
 				};
 
-				var updateCmd = { $set: updatedUser };
+				let updateCmd = { $set: updatedUser };
 				User.update(matchUser, updateCmd).exec(function(err, user){
 					if(err){
 						res.status(500).send('Error reading database!');
@@ -201,21 +201,21 @@ router.post('/reset/:email', function(req, res, next) {
 				});
 			} else {
 				//Create a random salt
-				var salt = crypto.randomBytes(128).toString('base64');
+				let salt = crypto.randomBytes(128).toString('base64');
 				//Create a unique hash from the provided password and salt
-				var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+				let hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
 
-				var matchUser = {
+				let matchUser = {
 					_id: user._id
 				};
 
-				var updatedUser = {
+				let updatedUser = {
 					password: hash,
 					salt: salt,
 					reset_token : ''
 				};
 
-				var updateCmd = { $set: updatedUser };
+				let updateCmd = { $set: updatedUser };
 				User.update(matchUser, updateCmd).exec(function(err, user){
 					if(err){
 						res.status(500).send('Error reading database!');

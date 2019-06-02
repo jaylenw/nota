@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var bluebird = require('bluebird');
-var config = require('config');
+const mongoose = require('mongoose');
+const bluebird = require('bluebird');
+const config = require('config');
 mongoose.Promise = bluebird;
 
-var databataseURI = config.get('db.databataseURI');
+const databataseURI = config.get('db.databataseURI');
 
 module.exports = function(done) {
 	mongoose.connect(databataseURI, {

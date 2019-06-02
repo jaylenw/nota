@@ -1,12 +1,12 @@
-var config = require('config');
-var api_key = config.get('mailgun_api_key');
-var domain = config.get('mailgun_domain');
-var reset_uri = config.get('reset_uri');
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-var activate_email = config.get('activate_email');
+const config = require('config');
+const api_key = config.get('mailgun_api_key');
+const domain = config.get('mailgun_domain');
+const reset_uri = config.get('reset_uri');
+const mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+const activate_email = config.get('activate_email');
 
 module.exports.forgot_email = function(req, res) {
-	var data = JSON.parse(JSON.stringify(config.get('forgot_email_data')));
+	let data = JSON.parse(JSON.stringify(config.get('forgot_email_data')));
 	data.to = req.body.email;
 	data.text = data.text + '\nThis is your reset token ' + req.body.rtoken +
   '\nVisit ' + reset_uri + req.body.email + ' to reset your password.';
@@ -25,7 +25,7 @@ module.exports.forgot_email = function(req, res) {
 };
 
 module.exports.confirm_pwd_email = function(req, res) {
-	var data = JSON.parse(JSON.stringify(config.get('confirm_pwd_email_data')));
+	let data = JSON.parse(JSON.stringify(config.get('confirm_pwd_email_data')));
 	data.to = req.params.email;
 	if(activate_email === 'true'){ // for unit tests or for some other reason would like to deactive emails
 		mailgun.messages().send(data).then(function(){
@@ -42,7 +42,7 @@ module.exports.confirm_pwd_email = function(req, res) {
 };
 
 module.exports.welcome_email = function(req, res) {
-	var data = JSON.parse(JSON.stringify(config.get('welcome_email_data')));
+	let data = JSON.parse(JSON.stringify(config.get('welcome_email_data')));
 	data.to = req.body.email;
 	if(activate_email === 'true'){ // for unit tests or for some other reason would like to deactive emails
 		mailgun.messages().send(data).then(function(){

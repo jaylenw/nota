@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-var Session = new mongoose.Schema({
+const mongoose = require('mongoose');
+const Session = new mongoose.Schema({
 	accountId: {
 		type: String,
 		require: 'Please provide the id of the account'
