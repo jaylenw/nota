@@ -3,6 +3,7 @@ var assert = chai.assert;
 var axios = require('axios');
 var moment = require('moment');
 var app = require('../app.js');
+var db = require('../models/db');
 var cleanDB = require('./clean/drop_db.js');
 var config = require('config');
 
@@ -17,7 +18,13 @@ var note1_ID = '';
 var note1_Archive = false;
 
 before(function(done) {
-  server = app.listen(3000, done);
+  this.timeout(0); // disable mocha's default timeout
+  db.verifiedConnectionToDB().then(function() {
+    app.listen(3000, done);
+  }).catch(function() {
+    console.log('Exiting as DB connection could not be established.');
+    process.exit(1);
+  });;
 })
 
 describe('nota tests', function() {
