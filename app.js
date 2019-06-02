@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var mongo = require('mongodb');
-var db = require('./models/db');
+// var db = require('./models/db');
 var tasks = require('./models/tasks');
 var users = require('./models/users');
 var sessions = require('./models/sessions');
