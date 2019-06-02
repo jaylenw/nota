@@ -2,3 +2,4 @@ test/test.js
 node_modules
 coverage
 database_vol_dir/
+postman
