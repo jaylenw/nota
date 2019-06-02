@@ -29,7 +29,10 @@ install:
 script:
   # For now, make sure containers can start successfully and pass unit tests
   # exit code will be obtained from nota service and shutdown other containers
+  # and remove lock file as mongodb exit code is expected to be 137, not
+  # shutdown cleanly
   - sudo docker-compose up --exit-code-from nota
+  - sudo rm -rf database_vol_dir/mongod.lock
   - sudo docker-compose ps
 
 # after_script:

@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('nota:server');
 var http = require('http');
+var db = require('../models/db');
 
 /**
  * Get port from environment and store in Express.
@@ -18,16 +19,20 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
+db.verifiedConnectionToDB().then(function() {
+  console.log('Starting app server...');
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+}).catch(function() {
+  console.log('Exiting as DB connection could not be established.');
+  process.exit(1);
+});
 
 /**
  * Normalize a port into a number, string, or false.
