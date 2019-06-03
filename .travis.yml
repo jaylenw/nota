@@ -30,8 +30,11 @@ script:
   # For now, make sure containers can start successfully and pass unit tests
   # exit code will be obtained from nota service and shutdown other containers
   # and remove lock file as mongodb exit code is expected to be 137, not
-  # shutdown cleanly
+  # shutdown cleanly. We will also run eslint to make sure all code is up
+  # to standards.
   - sudo docker-compose up --exit-code-from nota
+  # - ./node_modules/.bin/eslint ../* this is not inside the docker context so it
+  # won't run properly with travis ci
   - sudo rm -rf database_vol_dir/mongod.lock
   - sudo docker-compose ps
 
