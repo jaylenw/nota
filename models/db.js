@@ -13,13 +13,11 @@ function verifiedConnectionToDB () {
 		let timerObj = setInterval(function () {
 			mongoose.connect(databataseURI, {
 				useMongoClient: true
-			}).then(function(msg) {
+			}).then(function() {
 				console.log('Connected to DB.');
-				console.log(msg);
 				isConnected = true;
-			}).catch(function(err) {
+			}).catch(function() {
 				console.log('Failed to connect to DB.');
-				console.log(err);
 				counter = counter + 1;
 			});
 			if (isConnected) {
