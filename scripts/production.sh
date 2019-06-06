@@ -7,7 +7,7 @@ cd $notaDirectory
 
 export NODE_ENV=production
 echo "NODE_ENV is: "$NODE_ENV
-export DATABASEURI=mongodb://localhost/nota
+export DATABASEURI=mongodb://$dbUsername:$dbPassword@localhost/nota
 echo "Mongodb database URI is: "$DATABASEURI
 
 forever start bin/www

@@ -1,14 +1,44 @@
 sudo: required
 dist: trusty
-language: node_js
-node_js:
-  - "6.14.3"
+language: minimal
 
-before_script:
-  - echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-  - sudo apt-get update
-  - sudo apt-get install mongodb -y
+services:
+  - docker
+
+env:
+  COMPOSE_VERSION: 1.23.1
+
+before_install:
+  # Docker compose install
+  - sudo curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+  - sudo docker-compose --version
+
+install:
+  # For now, build containers with docker and docker compose
+  # passing in environment variable to send coverage report
+  - touch .env
+  - echo "COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}" > .env
+  - echo "TRAVIS=${TRAVIS}" > .env
+  - echo "TRAVIS_JOB_ID=${TRAVIS_JOB_ID}" > .env
+  - echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}" > .env
+  - echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}" > .env
+  - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated"
+  - sudo docker-compose build
 
 script:
-  - npm install
-  - npm test
+  # For now, make sure containers can start successfully and pass unit tests
+  # exit code will be obtained from nota service and shutdown other containers
+  # and remove lock file as mongodb exit code is expected to be 137, not
+  # shutdown cleanly. We will also run eslint to make sure all code is up
+  # to standards.
+  - sudo docker-compose up --exit-code-from nota
+  # - ./node_modules/.bin/eslint ../* this is not inside the docker context so it
+  # won't run properly with travis ci
+  - sudo rm -rf database_vol_dir/mongod.lock
+  - sudo docker-compose ps
+
+# after_script:
+#   # For now, make sure containers can shutdown gracefully
+#   - sudo docker-compose down
+#   - sudo docker-compose ps

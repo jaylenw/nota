@@ -1,5 +1,7 @@
 # Nota (TodoDoBackend) [![Build Status](https://travis-ci.org/jaylenw/nota.svg?branch=master)](https://travis-ci.org/jaylenw/nota) [![Coverage Status](https://coveralls.io/repos/github/jaylenw/nota/badge.svg?branch=master)](https://coveralls.io/github/jaylenw/nota?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/jaylenw/nota.svg)](https://greenkeeper.io/)
 
+![](https://github.com/jaylenw/nota/raw/master/screenshots/nota.png)
+
 ## Backend for AngularJSTodoApp & IonicTodoApp
 
 This reposistory contains the source code that makes up the Backend
@@ -10,7 +12,10 @@ on the projects' repo linked above.
 
 ## Build
 
-1. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If running a Debian/Ubuntu system and you do not have the packages installed globally, run these commands below:
+*Pro-tip*: A `vagrantfile` for Nota exists [here](https://github.com/jaylenw/VagrantBoxes/tree/master/Nota) if you would like
+to use it to quickly get your development environment setup.
+
+1. This guide assumes you are running a 16.04 LTS 64 bit Ubuntu system. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If you do not have the packages installed globally, run these commands below:
 
         sudo apt update  
         sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -22,8 +27,71 @@ on the projects' repo linked above.
 
 3. In the root of the project folder, run `npm install`.
 
-4. Next, install mongodb on your system globally and have it running. If on a Ubuntu/Debian system, you would run
-   `sudo apt install mongodb`.
+4. Next, install mongodb on your system globally and have it running. You would run
+the commands below.
+
+   ```
+   echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+   sudo apt-get update
+   sudo apt-get install mongodb -y
+   ```
+
+## Setting up authentication with MongoDB
+
+Mandatory for Production Environment, optional for test and development.
+By default, code in Nota does not expect authentication to be handled for test and development
+environments. To use test and development environment with mongodb authentication,
+go to `scripts/test.sh` and `scripts/development.sh` and make modifications to the line
+exporting the `DATABASEURI`.
+
+Note: When dropping collections or databases with a new user attached to it, that
+new user may not be able to drop the database. Consult MongoDB documentation for
+more info.
+
+**Note, in production, please use a unique username and strong password
+for everything.**
+
+1.) Enter the mongo shell by running `mongo`
+
+2.) Need to create a user that has elevated privileges
+
+```
+use admin
+db.createUser(
+  {
+    user: "root",
+    pwd: "<your-own-password>",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+)
+```
+
+3.) Run `db.adminCommand('getCmdLineOpts');` to find your config file path
+
+3.) Exit out of the mongo shell
+
+4.) Go to your `mongodb.conf` file and uncomment the line `#auth = true`. Save
+the file.
+
+5.) Run `sudo service mongodb restart`
+
+6.) Login as admin and connect to authentication database.
+`mongo -u "root" -p "<your-own-password>" --authenticationDatabase "admin"`
+
+7.) Specify the database you would like to enable authentication for.
+The username and password URI in `scripts/production.sh` can be used for reference
+for the commands below.
+
+ Run `use nota-test`, where nota-test is the database.
+
+```
+db.createUser(
+  {
+   user: "nota-test",
+   pwd: "nota-test",
+   roles: [ "readWrite"]
+  })
+```
 
 ## Testing
 
@@ -99,6 +167,37 @@ mongod --repair
 sudo service mongodb start
 ```
 
+## Emails w/ Mailgun
+
+By default, emails are deactivated in Nota. Unit tests will run fine without sending
+emails unless you activate Nota to send emails. To activate emails, you must do the
+following below for testing:
+
+```bash
+export ACTIVATE_EMAIL=true
+export MAILGUN_API_KEY=<"your mailgun api key value">
+export MAILGUN_DOMAIN=<"your mailgun domain value">
+export TEST_EMAIL=<"your verified test email">
+```
+
+Running tests after activating emails and providing the correct test email,
+emails will be sent to your inbox if you have configured everything correctly
+with Mailgun.
+
+When you have set Nota up for production, provide the necessary information as
+above, as well, export your reset uri.
+
+```bash
+export RESET_URI=<"your determined reset uri">
+```
+
+If you would like to change the subject or content of the emails being sent, you
+may do so in `config/default.js`.
+
+I recommend testing sending emails to yourself in Mailgun's sandbox mode before
+implementing emails for production. You may find more information about [Mailgun](https://www.mailgun.com/)
+on it's site.
+
 # Routes
 
 This backend allows the user to register, login, logout, reset password, create tasks, retrieve tasks, edit tasks, and delete tasks.
@@ -106,13 +205,17 @@ This backend allows the user to register, login, logout, reset password, create 
 ![](https://github.com/jaylenw/nota/raw/master/screenshots/current-routes.png)
 
 -------------------------------------------------------------------------------
+## Contributing
 
 Pull request and issues are welcomed. Please make sure you are able to run the
 unit tests with all passing before raising a PR. Add or modify unit tests sensibly
-if needed. As well, be descriptive in your PR description. Thank you! :)
+if needed. As well, be descriptive in your PR description and tag any relevant issues.
+Before making changes for a pull request, create or note an issue first, and use the
+issue number to create a new branch with the issue number in the branch name
+(ex. ghi-{issuenumber}, ghi-22} to include your work in. Thank you! :)
 
 --------------------------------------------------------------------------------
 
-Special Thanks to [@julianpoy](https://github.com/julianpoy) for making the foundation of this express app. This code base was derived from [here](https://github.com/julianpoy/jaylenBackend).
+Special Thanks to [@julianpoy](https://github.com/julianpoy) for making the foundation of this express app. This code base was derived from [here](https://github.com/julianpoy/jaylenBackend). Special Thanks to [@cheriejw](https://github.com/cheriejw) for providing Nota's logo.
 
 Made with ♥ in Los Angeles & Long Beach CA.
