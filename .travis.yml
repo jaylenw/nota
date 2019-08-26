@@ -23,7 +23,7 @@ install:
   - echo "TRAVIS_JOB_ID=${TRAVIS_JOB_ID}" > .env
   - echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}" > .env
   - echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}" > .env
-  - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated"
+  - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated" --no-cache"
   - sudo docker-compose build
 
 script:
@@ -35,7 +35,7 @@ script:
   - sudo docker-compose up --exit-code-from nota
   # - ./node_modules/.bin/eslint ../* this is not inside the docker context so it
   # won't run properly with travis ci
-  - sudo rm -rf database_vol_dir/mongod.lock
+  - sudo rm -rf database_vol_dir/
   - sudo docker-compose ps
 
 # after_script:

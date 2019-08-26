@@ -31,7 +31,7 @@ to use it to quickly get your development environment setup.
 the commands below.
 
    ```
-   echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+   apt install mongodb -y
    sudo apt-get update
    sudo apt-get install mongodb -y
    ```
@@ -198,14 +198,35 @@ I recommend testing sending emails to yourself in Mailgun's sandbox mode before
 implementing emails for production. You may find more information about [Mailgun](https://www.mailgun.com/)
 on it's site.
 
-# Routes
+## Routes
 
 This backend allows the user to register, login, logout, reset password, create tasks, retrieve tasks, edit tasks, and delete tasks.
 
 ![](https://github.com/jaylenw/nota/raw/master/screenshots/current-routes.png)
 
+
+## Using Docker for Running Tests (WIP)
+
+**1.)** Build the Ubuntu base image by running the following:
+
+`docker build -f Dockerfile-base . -t "ubuntu16.04-updated" --no-cache"`
+
+**2.)** Build the nota and database containers with docker-compose:
+
+`docker-compose build`
+
+**3.)** Run the following docker compose command to run the tests:
+
+`docker-compose up`
+
+**4.)** After the tests are completed, run the following to remove the database related directory:
+
+`sudo rm -rf database_vol_dir/`
+
+See issue [#85](https://github.com/jaylenw/nota/issues/85).
+
 -------------------------------------------------------------------------------
-## Contributing
+# Contributing
 
 Pull request and issues are welcomed. Please make sure you are able to run the
 unit tests with all passing before raising a PR. Add or modify unit tests sensibly
