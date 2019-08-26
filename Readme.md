@@ -209,7 +209,7 @@ This backend allows the user to register, login, logout, reset password, create 
 
 **1.)** Build the Ubuntu base image by running the following:
 
-`docker build -f Dockerfile-base . -t "ubuntu16.04-updated" --no-cache"`
+`docker build -f Dockerfile-base . -t "ubuntu16.04-updated" --no-cache`
 
 **2.)** Build the nota and database containers with docker-compose:
 
