@@ -23,7 +23,7 @@ install:
   - echo "TRAVIS_JOB_ID=${TRAVIS_JOB_ID}" > .env
   - echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}" > .env
   - echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}" > .env
-  - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated" --no-cache"
+  - sudo docker build -f Dockerfile-base . -t "ubuntu16.04-updated" --no-cache
   - sudo docker-compose build
 
 script:
