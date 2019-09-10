@@ -3,8 +3,8 @@ name: ESLINT
 # This workflow is triggered on pushes to this repository
 on:
   push:
-    branches:
-    - '*'
+    # branches:
+    # - '*'
     paths:
     - '*' # Run workflow for all paths, later determine to run workflow only on javascript file changes.
 
