@@ -14,6 +14,12 @@ jobs:
     name: Linter # Job name
     runs-on: ubuntu-16.04 # Run on Ubuntu version 16.04.
     steps:
+    # This step checks out a copy of your repository.
+    - uses: actions/checkout@v1
+    # This step adds node setup with version 6
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '6.x'
     - name: Install Dependencies
       run: npm install
     - name: Run ESLint
