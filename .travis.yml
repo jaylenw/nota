@@ -33,8 +33,6 @@ script:
   # shutdown cleanly. We will also run eslint to make sure all code is up
   # to standards.
   - sudo docker-compose up --exit-code-from nota
-  # - ./node_modules/.bin/eslint ../* this is not inside the docker context so it
-  # won't run properly with travis ci
   - sudo rm -rf database_vol_dir/
   - sudo docker-compose ps
 
