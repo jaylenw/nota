@@ -1,12 +1,9 @@
 name: ESLINT
 
-# This workflow is triggered on pushes to this repository
-on:
-  push:
-    # branches:
-    # - '*'
-    paths:
-    - '*' # Run workflow for all paths, later determine to run workflow only on javascript file changes.
+# This workflow is triggered on pushes and PRs to this repository
+on: [push, pull_request]
+#     paths:
+#     - '*' # Run workflow for all paths, later determine to run workflow only on javascript file changes.
 
 # Define our jobs
 jobs:
