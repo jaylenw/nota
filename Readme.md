@@ -31,7 +31,7 @@ to use it to quickly get your development environment setup.
 the commands below.
 
    ```
-   apt install mongodb -y
+   sudo apt install mongodb -y
    sudo apt-get update
    sudo apt-get install mongodb -y
    ```
