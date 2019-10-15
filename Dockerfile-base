@@ -1,0 +1,4 @@
+FROM ubuntu:16.04
+
+RUN apt update -y && apt upgrade -y && apt full-upgrade -y && apt install git \
+  apt-transport-https ca-certificates -y && apt autoclean -y;

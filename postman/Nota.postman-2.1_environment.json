@@ -1,0 +1,27 @@
+{
+  "id": "6b106ed6-ff4a-41eb-8f04-496c22cdf3af",
+  "name": "Nota",
+  "values": [
+    {
+      "key": "note1_id",
+      "value": "5b3c67ebf2dbf647d005a604",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "user1_token",
+      "value": "487e35cd081f00af5d025135ca5d69ec72a50b022a4692a3bf5e06986852b73a484f9326ac2813649e3b8dc82eb58764",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "user1_email",
+      "value": "user1@test.com",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-07-04T06:50:27.818Z",
+  "_postman_exported_using": "Postman/6.0.10"
+}

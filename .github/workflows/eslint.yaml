@@ -1,0 +1,23 @@
+name: ESLINT
+
+# This workflow is triggered on pushes and PRs to this repository
+on: [push, pull_request]
+#     paths:
+#     - '*' # Run workflow for all paths, later determine to run workflow only on javascript file changes.
+
+# Define our jobs
+jobs:
+  lint:
+    name: Linter # Job name
+    runs-on: ubuntu-16.04 # Run on Ubuntu version 16.04.
+    steps:
+    # This step checks out a copy of your repository.
+    - uses: actions/checkout@v1
+    # This step adds node setup with version 8
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '8.x'
+    - name: Install Dependencies
+      run: npm install
+    - name: Run ESLint
+      run: npm run linter
