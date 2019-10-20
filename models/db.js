@@ -12,7 +12,7 @@ function verifiedConnectionToDB () {
 		let limit = 5;
 		let timerObj = setInterval(function () {
 			mongoose.connect(databataseURI, {
-				useMongoClient: true
+				useNewUrlParser: true
 			}).then(function() {
 				console.log('Connected to DB.');
 				isConnected = true;

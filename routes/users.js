@@ -40,7 +40,7 @@ router.post('/register', function(req, res, next) {
 					//Create a random salt
 					let salt = crypto.randomBytes(128).toString('base64');
 					//Create a unique hash from the provided password and salt
-					let hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+					let hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512');
 					//Create a new user with the assembled information
 					User({
 						email: cleanEmail,
@@ -99,7 +99,7 @@ router.post('/login', function(req, res) {
 				});
 			} else {
 				//Hash the requested password and salt
-				let hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512);
+				let hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512, 'sha512');
 
 				//Compare to stored hash
 				if (hash == user.password) {
@@ -203,7 +203,7 @@ router.post('/reset/:email', function(req, res, next) {
 				//Create a random salt
 				let salt = crypto.randomBytes(128).toString('base64');
 				//Create a unique hash from the provided password and salt
-				let hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+				let hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512');
 
 				let matchUser = {
 					_id: user._id
