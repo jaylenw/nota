@@ -17,9 +17,9 @@ to use it to quickly get your development environment setup.
 
 1. This guide assumes you are running a 16.04 LTS 64 bit Ubuntu system. Need to have [Nodejs](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/), installed on your system globally. If you do not have the packages installed globally, run these commands below:
 
-        sudo apt update  
-        sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-        sudo apt install nodejs  
+        sudo apt update
+        sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        sudo apt install nodejs
         sudo ln -s /usr/bin/nodejs /usr/bin/node
         sudo npm install forever -g
 
