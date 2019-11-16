@@ -1,8 +1,8 @@
-FROM ubuntu16.04-updated
+FROM notaorg/nota-ubuntu-16.04:latest
 
 RUN apt install curl -y && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt install nodejs -y;
+    apt install nodejs -y && apt autoclean -y;
 
 COPY . /app
 

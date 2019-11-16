@@ -1,6 +1,6 @@
-FROM ubuntu16.04-updated
+FROM notaorg/nota-ubuntu-16.04:latest
 
-RUN apt install mongodb -y;
+RUN apt install mongodb -y && apt autoclean -y;
 
 # create default data directory
 RUN mkdir -p /data/db
