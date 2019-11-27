@@ -11,3 +11,7 @@
 #### Pushes the image to Docker Hub
 
 `docker push notaorg/nota-ubuntu-16.04:latest`
+
+### Build and tag an image from a particular stage
+
+`docker build --target deployment -t notaorg/nota-dev:latest .`

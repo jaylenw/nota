@@ -35,7 +35,14 @@ script:
   - sudo rm -rf database_vol_dir/
   - sudo docker-compose ps
 
-# after_script:
-#   # For now, make sure containers can shutdown gracefully
-#   - sudo docker-compose down
-#   - sudo docker-compose ps
+deploy:
+  # deploy master branch to the development registry notaorg/nota-dev
+  - provider: script
+    script: bash scripts/travis-deploy.sh dev
+    on:
+      branch: master
+  # deploy prod branch to production registry notaorg/nota-prod
+  - provider: script
+    script: bash scripts/travis-deploy.sh prod
+    on:
+      branch: prod
