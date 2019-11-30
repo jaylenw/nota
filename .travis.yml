@@ -45,4 +45,4 @@ deploy:
   - provider: script
     script: bash scripts/travis-deploy.sh prod
     on:
-      branch: prod
+      branch: production
