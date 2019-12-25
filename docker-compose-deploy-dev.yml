@@ -1,0 +1,16 @@
+version: '3'
+services:
+  notadev:
+    image: notaorg/nota-dev:2b28271
+    command: node bin/www
+    ports:
+     - "3001:3000" # host:container
+     #- "27017:27017"
+     #- "27018:27018"
+    environment:
+      - NODE_ENV=production
+      - DATABASEURI=mongodb://${dbUsernameDev}:${dbPasswordDev}@${dbAddress}/${dbName}
+      - ACTIVATE_EMAIL=${ACTIVATE_EMAIL}
+      - MAILGUN_API_KEY=${MAILGUN_API_KEY}
+      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN}
+    container_name: notadev
