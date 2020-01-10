@@ -31,6 +31,16 @@ COPY --from=deployment /app .
 # install all dependencies
 RUN npm install
 
+# Change user away from root, set an arbitrary uid
+#USER 9000
+
+# create user and user group
+RUN addgroup --system backEndUserGroup && \
+    adduser --disabled-password --gecos '' backenduser && \
+    chown -R backenduser:backEndUserGroup /app
+
+# switch away from root user and run as backEndUser
+USER backenduser
 # Runs unit / continuous integration tests
 CMD ./scripts/test.sh
 #CMD /bin/bash
