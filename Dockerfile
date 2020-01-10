@@ -12,9 +12,21 @@ RUN apt install curl -y && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt install nodejs -y && apt autoclean -y;
 
-COPY . /app
+# Change user away from root, set an arbitrary uid
+#USER 9000
 
-WORKDIR /app
+# create user and user group
+RUN addgroup --system backEndUserGroup && \
+    adduser --disabled-password --gecos '' backenduser && \
+    mkdir /home/backenduser/app && \
+    chown -R backenduser:backEndUserGroup /home/backenduser
+
+# switch away from root user and run as backEndUser
+USER backenduser
+
+COPY . /home/backenduser/app
+
+WORKDIR /home/backenduser/app
 
 # only install production dependencies
 RUN npm install --save-prod;
@@ -23,24 +35,14 @@ RUN npm install --save-prod;
 # image for this dockerfile build
 FROM deployment as test
 
-WORKDIR /app
+WORKDIR /home/backenduser/app
 
 # copy the workdir from the deployment stage to this stage
-COPY --from=deployment /app .
+COPY --from=deployment /home/backenduser/app .
 
 # install all dependencies
 RUN npm install
 
-# Change user away from root, set an arbitrary uid
-#USER 9000
-
-# create user and user group
-RUN addgroup --system backEndUserGroup && \
-    adduser --disabled-password --gecos '' backenduser && \
-    chown -R backenduser:backEndUserGroup /app
-
-# switch away from root user and run as backEndUser
-USER backenduser
 # Runs unit / continuous integration tests
 CMD ./scripts/test.sh
 #CMD /bin/bash
