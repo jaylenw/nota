@@ -21,7 +21,7 @@ RUN addgroup --system backEndUserGroup && \
     mkdir /home/backenduser/app && \
     chown -R backenduser:backEndUserGroup /home/backenduser
 
-# switch away from root user and run as backEndUser
+# switch away from root user and run as backenduser
 USER backenduser
 
 COPY . /home/backenduser/app
