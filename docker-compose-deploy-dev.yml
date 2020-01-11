@@ -14,3 +14,14 @@ services:
       - MAILGUN_API_KEY=${MAILGUN_API_KEY}
       - MAILGUN_DOMAIN=${MAILGUN_DOMAIN}
     container_name: notadev
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # check for new image every 60 secs and only watch watchtower and notadev containers
+    # remove old images after updating watched containers
+    command: watchtower notadev --interval 60 --cleanup
+    # provide slack web hook url to get notifications when containers update
+    environment:
+      - WATCHTOWER_NOTIFICATIONS=slack
+      - WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL=${WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL}
