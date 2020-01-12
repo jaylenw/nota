@@ -19,3 +19,7 @@
 ### Run the deployed image with a command to start the application
 
 `docker run <image-id> node bin/www`
+
+### Enter interactive mode with bash with docker-compose
+
+`sudo docker-compose run <service-name> bash`
