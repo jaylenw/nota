@@ -10,9 +10,11 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASEURI=mongodb://${dbUsernameDev}:${dbPasswordDev}@${dbAddress}/${dbName}
-      - ACTIVATE_EMAIL=${ACTIVATE_EMAIL}
-      - MAILGUN_API_KEY=${MAILGUN_API_KEY}
-      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN}
+      - ACTIVATE_EMAIL=${ACTIVATE_EMAIL} # string value to turn on emails
+      - RESET_URI=${RESET_URI} # uri to tell user where to reset their password
+      - FROM_HEADER=${FROM_HEADER} # from header, shows subject and sender address
+      - MAILGUN_API_KEY=${MAILGUN_API_KEY} # mailgun api
+      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN} # mailgun key
     container_name: notadev
   watchtower:
     image: containrrr/watchtower
