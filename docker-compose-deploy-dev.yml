@@ -15,7 +15,8 @@ services:
       - FROM_HEADER=${FROM_HEADER} # from header, shows subject and sender address
       - MAILGUN_API_KEY=${MAILGUN_API_KEY} # mailgun api
       - MAILGUN_DOMAIN=${MAILGUN_DOMAIN} # mailgun key
-    container_name: notadev
+    container_name: notadev # restarts container unless we explicitly stop it
+    restart: unless-stopped
   watchtower:
     image: containrrr/watchtower
     volumes:
@@ -27,3 +28,4 @@ services:
     environment:
       - WATCHTOWER_NOTIFICATIONS=slack
       - WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL=${WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL}
+    restart: unless-stopped # restarts container unless we explicitly stop it
