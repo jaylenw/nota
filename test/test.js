@@ -20,7 +20,7 @@ let note1_Archive = false;
 
 before(function(done) {
 	this.timeout(0); // disable mocha's default timeout
-	db.verifiedConnectionToDB('called from test.js').then(function() {
+	db.verifiedConnectionToDB().then(function() {
 		server = app.listen(3000, done);
 	}).catch(function() {
 		console.log('Exiting as DB connection could not be established.');
@@ -512,16 +512,11 @@ describe('nota tests', function() {
 	});
 });
 
-// after(function(done) {
-// 	cleanDB(done);
-// });
-
-
 after(function(done) {
 	cleanDB()
 	.then(function() {
 		server.close(function() {
-			console.log('application closed.');
+			console.log('Application closed.');
 			return done();
 		});
 	});
