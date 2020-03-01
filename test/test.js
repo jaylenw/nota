@@ -6,6 +6,7 @@ const app = require('../app.js');
 const db = require('../models/db');
 const cleanDB = require('./clean/drop_db.js');
 const config = require('config');
+let server;
 
 let user1_Token = '';
 let user1_Email = config.get('test_email');
@@ -20,7 +21,7 @@ let note1_Archive = false;
 before(function(done) {
 	this.timeout(0); // disable mocha's default timeout
 	db.verifiedConnectionToDB().then(function() {
-		app.listen(3000, done);
+		server = app.listen(3000, done);
 	}).catch(function() {
 		console.log('Exiting as DB connection could not be established.');
 		process.exit(1);
@@ -512,5 +513,11 @@ describe('nota tests', function() {
 });
 
 after(function(done) {
-	cleanDB(done);
+	cleanDB()
+	.then(function() {
+		server.close(function() {
+			console.log('Application closed.');
+			return done();
+		});
+	});
 });

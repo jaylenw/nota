@@ -1,20 +1,22 @@
-const mongoose = require('mongoose');
-const bluebird = require('bluebird');
-const config = require('config');
-mongoose.Promise = bluebird;
+const mdb = require('../../models/db');
 
-const databataseURI = config.get('db.databataseURI');
-
-module.exports = function(done) {
-	mongoose.connect(databataseURI, {
-		useMongoClient: true
-	})
-		.then(function () {
-			mongoose.connection.db.dropDatabase();
+module.exports = function() {
+	return new Promise(function(resolve, reject) {
+		return mdb.mgs.connection.db.dropDatabase().then(function() {
 			console.log('Dropped test db');
-			done();
-		})
-		.catch(function () {
+			return mdb.mgs.connection.close().then(function() {
+				console.log('Disconnected from db.');
+				resolve();
+				return;
+			}).catch(function(){
+				console.log('Failed to disconnect from db');
+				reject();
+				return;
+			});
+		}).catch(function() {
 			console.log('Failed to drop test db');
+			reject();
+			return;
 		});
+	});
 };
