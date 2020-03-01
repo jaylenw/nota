@@ -21,13 +21,13 @@ function verifiedConnectionToDB () {
 			}).catch(function() {
 				console.log('Failed to connect to DB.');
 				counter = counter + 1;
+				if (counter === limit) {
+					clearInterval(timerObj);
+					console.log(limit + ' failed attempts to connect to the DB.');
+					reject();
+					return;
+				}
 			});
-			if (counter === limit) {
-				clearInterval(timerObj);
-				console.log(limit + ' failed attempts to connect to the DB.');
-				reject();
-				return;
-			}
 		}, 5000);
 	});
 }
