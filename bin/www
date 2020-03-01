@@ -20,7 +20,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 let server = http.createServer(app);
-db.verifiedConnectionToDB().then(function() {
+db.verifiedConnectionToDB('called from www.js').then(function() {
 	console.log('Starting app server...');
 	/**
    * Listen on provided port, on all network interfaces.
