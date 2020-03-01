@@ -32,13 +32,5 @@ function verifiedConnectionToDB () {
 	});
 }
 
-// If the Node process ends, close the Mongoose connection
-process.on('SIGINT', function() {
-	mgs.connection.close(function () {
-		console.log('Mongoose default connection disconnected through app termination');
-		process.exit(0);
-	});
-});
-
 module.exports.verifiedConnectionToDB = verifiedConnectionToDB;
 module.exports.mgs = mgs;
