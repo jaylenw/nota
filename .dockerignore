@@ -1,3 +1,3 @@
-node_modules
 coverage
 database_vol_dir/
+.git

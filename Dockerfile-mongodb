@@ -1,0 +1,15 @@
+FROM notaorg/nota-ubuntu-16.04:latest
+
+RUN apt install mongodb -y && apt autoclean -y;
+
+# create default data directory
+RUN mkdir -p /data/db
+
+# Expose default port
+EXPOSE 27017
+
+# Default port to execute the entrypoint (MongoDB)
+# CMD ["--port 27017"]
+
+# Set default container command
+ENTRYPOINT usr/bin/mongod

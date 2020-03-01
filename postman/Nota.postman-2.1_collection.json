@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "6b4b8bbc-288a-48f8-ac88-f0e1a3d5435f",
+		"name": "Nota",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://0.0.0.0:3000/users/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a82539a-249b-47f6-834d-62b136246698",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"user1_token\", jsonData.token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"email\": \"user1@test.com\",\n\t\"password\": \"test123\"\n\n}"
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/users/register",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.0.0:3000/users/logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{user1_token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://0.0.0.0:3000/users/logout",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.0.0:3000/users/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f282331e-b07f-4a2d-8690-985d37ed4686",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"user1_token\", jsonData.token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"user1@test.com\",\n\t\"password\": \"test123\"\n}"
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.0.0:3000/users/tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53403b21-ea05-4687-aca4-e574c77812a2",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"note1_id\", jsonData._id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"{{user1_token}}\",\n\t\"title\": \"note 1 title\",\n\t\"body\": \"note 1 body\"\n}"
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/tasks",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.0.0:3000/tasks/{{note1_id}}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"{{user1_token}}\",\n\t\"title\": \"note 1 title edited\",\n\t\"body\": \"note 1 body edited\",\n\t\"archive\": true\n}"
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/tasks/{{note1_id}}",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"{{note1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.0.0:3000/tasks?token={{user1_token}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://0.0.0.0:3000/tasks?token={{user1_token}}",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{user1_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.0.0:3000/tasks/{{note1_id}}?token={{user1_token}}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/tasks/{{note1_id}}?token={{user1_token}}",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"{{note1_id}}"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{user1_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.00:3000/users/forgot",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"user1@test.com\"\n}"
+				},
+				"url": {
+					"raw": "http://0.0.00:3000/users/forgot",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"00"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"forgot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://0.0.00:3000/users/reset",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reset_token\": \"1111\",\n\t\"password\": \"newPass\"\n}"
+				},
+				"url": {
+					"raw": "http://0.0.00:3000/users/reset/{{user1_email}}",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"00"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"reset",
+						"{{user1_email}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

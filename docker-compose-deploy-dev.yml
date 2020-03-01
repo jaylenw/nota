@@ -1,0 +1,33 @@
+version: '3'
+services:
+  notadev:
+    image: notaorg/nota-dev:latest
+    command: node bin/www
+    ports:
+     - "3001:3000" # host:container
+     #- "27017:27017"
+     #- "27018:27018"
+    environment:
+      - NODE_ENV=production
+      - DATABASEURI=mongodb://${dbUsernameDev}:${dbPasswordDev}@${dbAddress}/${dbName}
+      - ACTIVATE_EMAIL=${ACTIVATE_EMAIL} # string value to turn on emails
+      - RESET_URI=${RESET_URI} # uri to tell user where to reset their password
+      - FROM_HEADER=${FROM_HEADER} # from header, shows subject and sender address
+      - MAILGUN_API_KEY=${MAILGUN_API_KEY} # mailgun api
+      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN} # mailgun key
+    container_name: notadev # restarts container unless we explicitly stop it
+    restart: unless-stopped
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # check for new image every 60 secs and only watch watchtower and notadev containers
+    # remove old images after updating watched containers
+    # this compose file will have the one watchtower image to control all of the various
+    # related nota containers
+    command: watchtower notadev notaprod --interval 60 --cleanup
+    # provide slack web hook url to get notifications when containers update
+    environment:
+      - WATCHTOWER_NOTIFICATIONS=slack
+      - WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL=${WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL}
+    restart: unless-stopped # restarts container unless we explicitly stop it

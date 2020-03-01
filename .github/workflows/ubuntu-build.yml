@@ -1,0 +1,26 @@
+# This Action for Docker uses the Git branch as the Docker tag for building
+# and pushing the container. Hereby the master-branch is published as the latest-tag.
+# https://github.com/marketplace/actions/publish-docker
+
+name: UBUNTU-BUILD
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # runs 8:00 UTC everyday (midnight PST / 1am PDT)
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build and publish nota-ubuntu-16.04 image to DockerHub
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with: 
+        name: notaorg/nota-ubuntu-16.04 # the docker repository
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        dockerfile: Dockerfile-base # specify the dockerfile in the repo
+        snapshot: true # Use snapshot to push an additional image, which is tagged with
+        # {YEAR}{MONTH}{DAY}{HOUR}{MINUTE}{SECOND}{first 6 digits of the git sha}.

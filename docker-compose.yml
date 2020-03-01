@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nota:
+    build: .
+    ports:
+     - "3000:3000"
+    environment:
+      - DATABASEURI=mongodb://mongo/nota-test
+      - COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
+      - TRAVIS=${TRAVIS}
+      - TRAVIS_JOB_ID=${TRAVIS_JOB_ID}
+      - TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}
+      - TRAVIS_BRANCH=${TRAVIS_BRANCH}
+      - ACTIVATE_EMAIL=${ACTIVATE_EMAIL}
+      - MAILGUN_API_KEY=${MAILGUN_API_KEY}
+      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN}
+      - TEST_EMAIL=${TEST_EMAIL}
+    depends_on:
+      - "mongo"
+    container_name: nota-backend
+  mongo:
+    build:
+      context: .
+      dockerfile: Dockerfile-mongodb
+    # image: "nota-db:latest"
+    ports:
+     - "27017:27017"
+     - "27018:27018"
+    container_name: nota-mongodb
+    volumes:
+      - ./database_vol_dir:/data/db

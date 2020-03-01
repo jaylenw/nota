@@ -1,19 +1,22 @@
-var mongoose = require('mongoose');
-var bluebird = require('bluebird');
-mongoose.Promise = bluebird;
+const mdb = require('../../models/db');
 
-var databataseURI = 'mongodb://localhost/nota-test';
-
-module.exports = function(done) {
-  mongoose.connect(databataseURI, {
-    useMongoClient: true
-  })
-  .then(function () {
-    mongoose.connection.db.dropDatabase();
-    console.log('Dropped test db');
-    done();
-  })
-  .catch(function () {
-    console.log('Failed to drop db');
-  });
-}
+module.exports = function() {
+	return new Promise(function(resolve, reject) {
+		return mdb.mgs.connection.db.dropDatabase().then(function() {
+			console.log('Dropped test db');
+			return mdb.mgs.connection.close().then(function() {
+				console.log('Disconnected from db.');
+				resolve();
+				return;
+			}).catch(function(){
+				console.log('Failed to disconnect from db');
+				reject();
+				return;
+			});
+		}).catch(function() {
+			console.log('Failed to drop test db');
+			reject();
+			return;
+		});
+	});
+};
