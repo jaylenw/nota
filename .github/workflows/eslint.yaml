@@ -16,7 +16,7 @@ jobs:
     # This step adds node setup with version 8
     - uses: actions/setup-node@v1
       with:
-        node-version: '8.x'
+        node-version: '10.x'
     - name: Install Dependencies
       run: npm install
     - name: Run ESLint
