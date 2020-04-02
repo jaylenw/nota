@@ -20,6 +20,6 @@ module.exports = {
 	activate_email: process.env.ACTIVATE_EMAIL || 'false',
 	mailgun_api_key: process.env.MAILGUN_API_KEY || 'place-holder-apiKey',
 	mailgun_domain: process.env.MAILGUN_DOMAIN || 'place-holder-domain',
-	reset_uri: process.env.RESET_URI || 'https://placeholder.com/reset/',
+	reset_uri: process.env.RESET_URI || 'https://placeholder.com',
 	test_email: process.env.TEST_EMAIL || 'user1@test.com'
 };
