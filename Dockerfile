@@ -18,15 +18,16 @@ RUN apt install curl -y && \
 # create user and user group
 RUN addgroup --system backEndUserGroup && \
     adduser --disabled-password --gecos '' backenduser && \
-    mkdir /home/backenduser/app && \
-    chown -R backenduser:backEndUserGroup /home/backenduser
-
-# switch away from root user and run as backenduser
-USER backenduser
+    mkdir /home/backenduser/app
 
 COPY . /home/backenduser/app
 
 WORKDIR /home/backenduser/app
+
+RUN chown -R backenduser:backEndUserGroup /home/backenduser
+
+# switch away from root user and run as backenduser
+USER backenduser
 
 # only install production dependencies
 RUN npm install --save-prod;

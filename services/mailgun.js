@@ -9,7 +9,7 @@ module.exports.forgot_email = function(req, res) {
 	let data = JSON.parse(JSON.stringify(config.get('forgot_email_data')));
 	data.to = req.body.email;
 	data.text = data.text + '\nThis is your reset token ' + req.body.rtoken +
-  '\nVisit ' + reset_uri + req.body.email + ' to reset your password.';
+  '\nVisit ' + reset_uri + '/#/reset to reset your password.';
 	if(activate_email === 'true'){ // for unit tests or for some other reason would like to deactive emails
 		mailgun.messages().send(data).then(function(){
 			// console.log(body); debugging purposes only
