@@ -7,7 +7,7 @@
 This reposistory contains the source code that makes up the backend
 for [AngularJSTodoApp](https://github.com/jaylenw/AngularJsTodoApp), [IonicTodoApp](https://github.com/jaylenw/IonicTodoApp), and [ElectronTodoApp](https://github.com/jaylenw/ElectronTodoApp).
 
-## Description
+## Application Description
 
 Users are able to use this App as a Todo-List or a Note Taking application.
 
