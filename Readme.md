@@ -145,7 +145,7 @@ to update our running containers when it detects a new image is available for
 the dev or prod environments. I suggest putting a proxy server in front of the
 Docker setup, such as [NGINX](https://www.nginx.com/).
 
-### (Option 2) - No Docker
+### (Option 2) - Without Docker
 
 This option assumes you would like to deploy Nota in an environment without Docker.
 Please make sure you read through the Docker files in this repository to make sure
