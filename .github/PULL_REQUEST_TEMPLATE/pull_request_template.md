@@ -4,4 +4,4 @@
 
 ### How were the changes in this PR tested if applicable?
 
-### Any issues this PR is related to?
+### Any issues that are related to this PR?
