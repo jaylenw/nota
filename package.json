@@ -23,7 +23,7 @@
     "mongoose": "^5.9.12",
     "morgan": "^1.10.0",
     "pug": "^2.0.4",
-    "serve-favicon": "^2.4.5",
+    "serve-favicon": "^2.5.0",
     "snyk": "^1.321.0"
   },
   "devDependencies": {
