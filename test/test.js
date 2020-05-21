@@ -3,7 +3,7 @@ const assert = chai.assert;
 const axios = require('axios');
 const moment = require('moment');
 const app = require('../app.js');
-const db = require('../models/db');
+const db = require('../services/db');
 const cleanDB = require('./clean/drop_db.js');
 const config = require('config');
 let server;

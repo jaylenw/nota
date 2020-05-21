@@ -1,4 +1,4 @@
-const mdb = require('../../models/db');
+const mdb = require('../../services/db');
 
 module.exports = function() {
 	return new Promise(function(resolve, reject) {
