@@ -20,11 +20,11 @@
     "express": "^4.17.1",
     "mailgun-js": "^0.20.0",
     "moment": "^2.25.3",
-    "mongoose": "^5.9.14",
+    "mongoose": "^5.9.15",
     "morgan": "^1.10.0",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0",
-    "snyk": "^1.321.0"
+    "snyk": "^1.330.2"
   },
   "devDependencies": {
     "acorn": "^7.1.1",
