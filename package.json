@@ -16,15 +16,15 @@
     "config": "^3.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "debug": "^4.1.1",
+    "debug": "^4.2.0",
     "express": "^4.17.1",
     "mailgun-js": "^0.20.0",
     "moment": "^2.26.0",
-    "mongoose": "^5.9.15",
+    "mongoose": "^5.9.16",
     "morgan": "^1.10.0",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0",
-    "snyk": "^1.323.0"
+    "snyk": "^1.332.0"
   },
   "devDependencies": {
     "acorn": "^7.1.1",
