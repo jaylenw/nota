@@ -1,4 +1,4 @@
-# Nota (TodoDoBackend) [![Build Status](https://travis-ci.org/jaylenw/nota.svg?branch=master)](https://travis-ci.org/jaylenw/nota) [![Coverage Status](https://coveralls.io/repos/github/jaylenw/nota/badge.svg?branch=master)](https://coveralls.io/github/jaylenw/nota?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/jaylenw/nota.svg)](https://greenkeeper.io/) [![GitHub Action](https://github.com/jaylenw/nota/workflows/ESLINT/badge.svg)](https://github.com/jaylenw/nota/actions)
+# Nota (TodoDoBackend) [![Build Status](https://travis-ci.com/jaylenw/nota.svg?branch=master)](https://travis-ci.com/jaylenw/nota) [![Coverage Status](https://coveralls.io/repos/github/jaylenw/nota/badge.svg?branch=master)](https://coveralls.io/github/jaylenw/nota?branch=master)  [![GitHub Action](https://github.com/jaylenw/nota/workflows/ESLINT/badge.svg)](https://github.com/jaylenw/nota/actions) [![Custon Snyk badge](https://img.shields.io/badge/snyk-enabled-blueviolet)](https://snyk.io/)
 
 ![](https://github.com/jaylenw/nota/raw/master/screenshots/nota.png)
 
@@ -145,7 +145,7 @@ to update our running containers when it detects a new image is available for
 the dev or prod environments. I suggest putting a proxy server in front of the
 Docker setup, such as [NGINX](https://www.nginx.com/).
 
-### (Option 2) - No Docker
+### (Option 2) - Without Docker
 
 This option assumes you would like to deploy Nota in an environment without Docker.
 Please make sure you read through the Docker files in this repository to make sure
@@ -275,12 +275,7 @@ This backend allows the user to register, login, logout, reset password, create 
 -------------------------------------------------------------------------------
 # Contributing
 
-Pull request and issues are welcomed. Please make sure you are able to run the
-unit tests with all passing before raising a PR. Add or modify unit tests sensibly
-if needed. As well, be descriptive in your PR description and tag any relevant issues.
-Before making changes for a pull request, create or note an issue first, and use the
-issue number to create a new branch with the issue number in the branch name
-(ex. ghi-{issuenumber}, ghi-22} to include your work in. Thank you! :)
+All contributions are welcomed! Please read the `CONTRIBUTIONS.md` file.
 
 --------------------------------------------------------------------------------
 
