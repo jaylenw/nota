@@ -20,7 +20,7 @@
     "express": "^4.17.1",
     "moment": "^2.27.0",
     "mailgun-js": "^0.22.0",
-    "mongoose": "^5.9.29",
+    "mongoose": "^5.10.0",
     "morgan": "^1.10.0",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0",
