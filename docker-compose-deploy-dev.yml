@@ -21,11 +21,11 @@ services:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    # check for new image every 60 secs and only watch watchtower and notadev containers
+    # check for new image every 3600 secs (1hr) and only watch watchtower, notadev, and notaprod containers
     # remove old images after updating watched containers
     # this compose file will have the one watchtower image to control all of the various
     # related nota containers
-    command: watchtower notadev notaprod --interval 60 --cleanup
+    command: watchtower notadev notaprod --interval 3600 --cleanup
     # provide slack web hook url to get notifications when containers update
     environment:
       - WATCHTOWER_NOTIFICATIONS=slack
