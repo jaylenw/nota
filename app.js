@@ -4,20 +4,15 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-let users = require('./models/users');
+/* eslint-disable-next-line */
+const modelUsers = require('./models/users');
 /* eslint-disable-next-line */
 const sessions = require('./models/sessions');
 /* eslint-disable-next-line */
-const tasks = require('./models/tasks');
+const modelTasks = require('./models/tasks');
 
-users = require('./routes/users');
+let users = require('./routes/users');
 let routes = require('./routes/index');
-
-/*
-*
-* The above section needs to be thoroughly refactored!
-*
-*/
 
 const app = express();
 
