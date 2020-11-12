@@ -7,7 +7,7 @@ const cors = require('cors');
 /* eslint-disable-next-line */
 const modelUsers = require('./models/users');
 /* eslint-disable-next-line */
-const sessions = require('./models/sessions');
+const modelSessions = require('./models/sessions');
 /* eslint-disable-next-line */
 const modelTasks = require('./models/tasks');
 
