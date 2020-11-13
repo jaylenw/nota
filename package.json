@@ -10,21 +10,21 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
-    "config": "^3.3.1",
+    "config": "^3.3.2",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "debug": "^4.2.0",
+    "debug": "^4.3.0",
     "express": "^4.17.1",
-    "moment": "^2.27.0",
+    "moment": "^2.29.1",
     "mailgun-js": "^0.22.0",
-    "mongoose": "^5.10.0",
+    "mongoose": "^5.10.13",
     "morgan": "^1.10.0",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0",
-    "snyk": "^1.332.0"
+    "snyk": "^1.425.3"
   },
   "devDependencies": {
     "acorn": "^7.1.1",
