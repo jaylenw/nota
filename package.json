@@ -24,7 +24,7 @@
     "morgan": "^1.10.0",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0",
-    "snyk": "^1.433.0"
+    "snyk": "^1.437.1"
   },
   "devDependencies": {
     "acorn": "^7.1.1",
