@@ -122,8 +122,8 @@ in interactive mode. The same with Nota on `localhost:3000`.
 The way Nota is currently configured, it is assumed that you have a separate MongoDB
 instance running somewhere where Nota can access it. There is no Docker image /
 configuration provided for running MongoDB in production with Docker. Please
-view the `Dockerfile-mongodb` file to see how you may use the installation
-commands for setting up your MongoDB instance in your preferred environment.
+view the `Dockerfile-mongodb` [file](https://github.com/jaylenw/nota/blob/e4ffd4b5db5f507e5333af1c71931b32f7e2dea3/Dockerfile-mongodb)
+to see how you may use the installation commands for setting up your MongoDB instance in your preferred environment.
 
 ### (Option 1) - With Docker
 
