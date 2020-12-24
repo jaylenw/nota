@@ -59,14 +59,6 @@ To run the tests for Nota, run the following command:
 The above command will start Nota and MongoDB and begin running the tests. The
 command will then shutdown the containers that were spun up for testing.
 
-**Note:** After the tests are completed, run the following to remove the database
-related directory:
-
-`sudo rm -rf database_vol_dir/`
-
-See issue [#85](https://github.com/jaylenw/nota/issues/85). Please do the same
-from the host machine when testing / developing manually with Docker.
-
 #### Testing manually with Docker
 
 You will need to start the containers in interactive mode.
