@@ -6,10 +6,13 @@
 # when tests have passed
 
 # create deployment stage
-FROM notaorg/nota-ubuntu-16.04:latest AS deployment
+FROM ubuntu:20.04 AS deployment
+
+RUN apt update -y && apt upgrade -y && apt full-upgrade -y && apt install git \
+  apt-transport-https ca-certificates -y && apt autoclean -y;
 
 RUN apt install curl -y && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt install nodejs -y && apt autoclean -y;
 
 # Change user away from root, set an arbitrary uid
