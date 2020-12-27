@@ -37,6 +37,8 @@ USER backenduser
 # only install production dependencies
 RUN npm install --save-prod;
 
+RUN ls -al node_modules/
+
 # from deployment stage of the build, create test stage and this will be the final
 # image for this dockerfile build
 FROM deployment as test
@@ -45,6 +47,8 @@ WORKDIR /home/backenduser/app
 
 # copy the workdir from the deployment stage to this stage
 COPY --from=deployment /home/backenduser/app .
+
+RUN ls -al node_modules/
 
 # install all dependencies
 RUN npm install
