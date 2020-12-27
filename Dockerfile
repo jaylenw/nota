@@ -41,11 +41,6 @@ RUN npm install --save-prod;
 # image for this dockerfile build
 FROM deployment as test
 
-WORKDIR /home/backenduser/app
-
-# copy the workdir from the deployment stage to this stage
-COPY --from=deployment /home/backenduser/app .
-
 # install all dependencies
 RUN npm install
 
