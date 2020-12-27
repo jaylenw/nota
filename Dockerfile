@@ -8,9 +8,11 @@
 # create deployment stage
 FROM ubuntu:20.04 AS deployment
 
-RUN apt update -y && apt upgrade -y && apt full-upgrade -y && apt install git \
-  apt-transport-https ca-certificates -y && apt autoclean -y;
+# fetch latest updates and autoclean the cache dependencies
+RUN apt update -y && apt upgrade -y && apt full-upgrade -y \
+  && apt autoclean -y;
 
+# install nodejs and autoclean
 RUN apt install curl -y && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt install nodejs -y && apt autoclean -y;
