@@ -46,7 +46,9 @@ FROM deployment as test
 WORKDIR /home/backenduser/app
 
 # copy the workdir from the deployment stage to this stage
-COPY --from=deployment /home/backenduser/app .
+#COPY --from=deployment /home/backenduser/app .
+
+RUN whoami
 
 RUN ls -al node_modules/
 
