@@ -19,13 +19,11 @@ services:
       - "mongo"
     container_name: nota-backend
   mongo:
-    build:
-      context: .
-      dockerfile: Dockerfile-mongodb
-    # image: "nota-db:latest"
+    image: mongo:3.6.21-xenial
     ports:
-     - "27017:27017"
-     - "27018:27018"
-    container_name: nota-mongodb
+      - "27017:27017"
     volumes:
-      - ./database_vol_dir:/data/db
+      - mongodb_test_data:/data/db # create named volume for storing our db data
+    container_name: nota-test-mongodb
+volumes:
+  mongodb_test_data:

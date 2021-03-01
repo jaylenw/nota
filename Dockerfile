@@ -6,10 +6,15 @@
 # when tests have passed
 
 # create deployment stage
-FROM notaorg/nota-ubuntu-16.04:latest AS deployment
+FROM ubuntu:20.04 AS deployment
 
+# fetch latest updates and autoclean the cache dependencies
+RUN apt update -y && apt upgrade -y && apt full-upgrade -y \
+  && apt autoclean -y;
+
+# install nodejs and autoclean
 RUN apt install curl -y && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt install nodejs -y && apt autoclean -y;
 
 # Change user away from root, set an arbitrary uid
@@ -35,11 +40,6 @@ RUN npm install --save-prod;
 # from deployment stage of the build, create test stage and this will be the final
 # image for this dockerfile build
 FROM deployment as test
-
-WORKDIR /home/backenduser/app
-
-# copy the workdir from the deployment stage to this stage
-COPY --from=deployment /home/backenduser/app .
 
 # install all dependencies
 RUN npm install
