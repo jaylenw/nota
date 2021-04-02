@@ -28,7 +28,7 @@ router.post('/register', function(req, res, next) {
 	} else {
 		//Check if a user with that username already exists
 		User.findOne({
-			email: cleanEmail
+			email: {$eq: cleanEmail}
 		})
 			.select('_id')
 			.exec(function(err, user) {
@@ -85,7 +85,7 @@ router.post('/login', function(req, res) {
 
 	//Find a user with the username requested. Select salt and password
 	User.findOne({
-		email: (req.body.email.toLowerCase()).trim()
+		email: {$eq: (req.body.email.toLowerCase()).trim()}
 	})
 		.select('password salt')
 		.exec(function(err, user) {
@@ -137,7 +137,7 @@ router.post('/forgot', function(req, res, next) {
 	}
 	let modified_email = (req.body.email.toLowerCase()).trim();
 	User.findOne({
-		email: modified_email
+		email: {$eq: modified_email}
 	})
 		.select('_id')
 		.exec(function(err, user) {
@@ -191,7 +191,7 @@ router.post('/reset/:email', function(req, res, next) {
 	}
 
 	User.findOne({
-		reset_token: req.body.reset_token
+		reset_token: {$eq: req.body.reset_token}
 	})
 		.select('_id')
 		.exec(function(err, user) {

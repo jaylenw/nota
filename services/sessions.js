@@ -7,12 +7,12 @@ exports.validateSession = function(token, type, success, fail) {
 	let query;
 	if(typeof type == 'string'){
 		query = {
-			token: token,
+			token: {$eq: token},
 			type: type
 		};
 	} else {
 		query = {
-			token: token,
+			token: {$eq: token},
 			type: { $in : type }
 		};
 	}
@@ -60,7 +60,7 @@ exports.generateSession = function(accountId, type, success, fail) {
 //Creates a token and returns the token if successful
 exports.deleteSession = function(token, success, fail) {
 	Session.findOne({
-		token: token
+		token: {$eq: token}
 	}).remove(function(err){
 		if(err) fail(err);
 		else success();
