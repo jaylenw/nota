@@ -13,7 +13,7 @@ jobs:
       CI_NAME: github-actions
       CI_BUILD_NUMBER: ${{ github.run_id }}
       CI_BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      CI_BRANCH: ${{ github.head_ref }}
+      CI_BRANCH: ${{ github.ref_name }}
       CI_PULL_REQUEST: ${{ github.event.pull_request.number }} # https://github.com/coverallsapp/github-action/blob/1d06dda8c4202fdcc535af24a4161b32317ae610/src/run.ts#L50
     runs-on: ubuntu-20.04
     steps:
