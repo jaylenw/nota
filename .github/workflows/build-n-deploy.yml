@@ -1,0 +1,33 @@
+name: Build, Test, Deploy
+
+on: [push, pull_request]
+
+jobs:
+
+  build-test-deploy:
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      # Following environment variables are for Coveralls since I do not want to use the coveralls action.
+      # environment variables referenced from https://www.npmjs.com/package/coveralls
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      COVERALLS_SERVICE_NUMBER: ${{ github.run_id }}
+      COVERALLS_SERVICE_NAME: github-actions
+      COVERALLS_GIT_BRANCH: ${{ github.ref_name }}
+      COVERALLS_GIT_COMMIT: ${{ github.sha }}
+      CI_BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}  
+      CI_PULL_REQUEST: ${{ github.event.pull_request.number }} # https://github.com/coverallsapp/github-action/blob/1d06dda8c4202fdcc535af24a4161b32317ae610/src/run.ts#L50
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Nota Image
+      run: docker-compose build
+    - name: Pull Dependency Images, Start Nota, & Run tests # exit code will be obtained from nota service and shutdown other containers
+      run: docker-compose up --exit-code-from nota
+    - run: docker-compose ps
+    - name: Deploy to notaorg/nota-dev # deploy master branch to the development registry notaorg/nota-dev
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      run: ./scripts/docker-deploy.sh dev
+    - name: Deploy to notaorg/nota-prod # deploy prod branch to production registry notaorg/nota-prod
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/production' }}
+      run: ./scripts/docker-deploy.sh prod
