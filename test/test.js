@@ -176,9 +176,7 @@ describe('nota tests', function() {
 				.then(function (response) {
 					console.log(response.status);
 					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data.ok === 1);
-					assert(response.data.nModified === 1);
+					assert(response.status === 204);
 					done();
 				})
 				.catch(function (error){

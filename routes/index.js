@@ -72,13 +72,13 @@ router.put('/tasks/:id', function(req, res){
 
 		let updateCmd = { $set: updatedTask };
 
-		Task.update(matchTask, updateCmd).exec(function(err, task){
+		Task.updateOne(matchTask, updateCmd).exec(function(err, successResult){
 			if(err){
 				res.status(500).send('Error reading database!');
-			} else if(!task) {
+			} else if(!successResult) {
 				res.status(404).send('No task with that ID found in your account.');
 			} else {
-				res.status(200).send(task);
+				res.status(204).send('Task updated successfully.');
 			}
 		});
 	});
