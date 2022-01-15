@@ -1,11 +1,14 @@
 const chai = require('chai');
 const assert = chai.assert;
 const axios = require('axios');
+const request = require('supertest');
 const moment = require('moment');
 const app = require('../app.js');
 const db = require('../services/db');
 const cleanDB = require('./clean/drop_db.js');
 const config = require('config');
+const { expect } = require('chai');
+const { response } = require('express');
 let server;
 
 let user1_Token = '';
@@ -30,175 +33,133 @@ before(function(done) {
 
 describe('nota tests', function() {
 
-	let axiosInstance = axios.create({
-		baseURL: 'http://0.0.0.0:3000',
-		timeout: 1000
-	});
-
-	describe('Users tests', function() {
+	describe('user & tasks tests', function() {
 
 		it('register user', function(done) {
-			axiosInstance.post('/users/register', {
-				email: user1_Email,
-				password: user1_Password
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 201);
-					assert.exists(response.data.token);
-					user1_Token = response.data.token;
+			request(app)
+				.post('/users/register')
+				.send({ email: user1_Email, password: user1_Password })
+				.expect(201)
+				.then(response => {
+					assert.exists(response.body.token);
+					user1_Token = response.body.token;
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('register user (email used again)', function(done) {
-			axiosInstance.post('/users/register', {
-				email: user1_Email,
-				password: user1_Password
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 409);
-					assert(error.response.data.msg === 'Email taken!');
+			request(app)
+				.post('/users/register')
+				.send({ email: user1_Email, password: user1_Password })
+				.expect(409)
+				.then(response => {
+					assert(response.body.msg === 'Email taken!');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('register user (invalid email address)', function(done) {
-			axiosInstance.post('/users/register', {
-				email: 'test@!@#.com',
-				password: user1_Password
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 406);
-					assert(error.response.data.msg === 'Email is not valid!');
+			request(app)
+				.post('/users/register')
+				.send({ email: 'test@!@#.com', password: user1_Password })
+				.expect(406)
+				.then(response => {
+					assert(response.body.msg === 'Email is not valid!');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('register user (no password)', function(done) {
-			axiosInstance.post('/users/register', {
-				email: user1_Email,
-				password: ''
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/register')
+				.send({ email: user1_Email, password: '' })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg === 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('register user (no email address)', function(done) {
-			axiosInstance.post('/users/register', {
-				email: '',
-				password: user1_Password
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/register')
+				.send({ email: '', password: user1_Password })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg === 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('create first note', function(done) {
-			axiosInstance.post('/tasks', {
-				token: user1_Token,
-				title: note1_Title,
-				body: note1_Body
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 201);
-					assert(response.data.title === note1_Title);
-					assert(response.data.body === note1_Body);
-					assert(response.data.archive === note1_Archive);
-					assert.exists(response.data._id);
-					assert.exists(response.data.accountId);
-					assert(moment(response.date).isValid());
-					note1_ID = response.data._id;
-					user1_AccountID = response.data.accountId;
+			request(app)
+				.post('/tasks')
+				.send({ token: user1_Token, title: note1_Title, body: note1_Body })
+				.expect(201)
+				.then(response => {
+					assert(response.body.title === note1_Title);
+					assert(response.body.body === note1_Body);
+					assert(response.body.archive === note1_Archive);
+					assert.exists(response.body._id);
+					assert.exists(response.body.accountId);
+					assert(moment(response.body.date).isValid());
+					note1_ID = response.body._id;
+					user1_AccountID = response.body.accountId;
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('create first note (no title or body)', function(done) {
-			axiosInstance.post('/tasks', {
-				token: user1_Token
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.data === 'Precondition failed. Required: title, body.');
+			request(app)
+				.post('/tasks')
+				.send({ token: user1_Token })
+				.expect(412)
+				.then(response => {
+					assert(response.text === 'Precondition failed. Required: title, body.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('edit first note', function(done) {
+			
 			note1_Title = note1_Title + ' plus edited';
 			note1_Body = note1_Body + ' plus edited';
 			note1_Archive = true;
-			axiosInstance.put('/tasks/' + note1_ID, {
-				token: user1_Token,
-				title: note1_Title,
-				body: note1_Body,
-				archive: note1_Archive
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 204);
+
+			request(app)
+				.put('/tasks/' + note1_ID)
+				.send({ token: user1_Token, title: note1_Title, body: note1_Body, archive: note1_Archive })
+				.expect(204)
+				.then(response => {
+					assert(response.text === '');
 					done();
 				})
-				.catch(function (error){
-					console.log(error);
+				.catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('edit first note (no user token)', function(done) {
-			axiosInstance.put('/tasks/' + note1_ID, {
-				title: note1_Title,
-				body: note1_Body,
-				archive: note1_Archive
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error);
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.put('/tasks/' + note1_ID)
+				.send({ title: note1_Title, body: note1_Body, archive: note1_Archive })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg === 'Route requisites not met.');
 					done();
 				});
 		});
@@ -226,48 +187,42 @@ describe('nota tests', function() {
 		// });
 
 		it('get all tasks', function(done) {
-			axiosInstance.get('/tasks?token=' + user1_Token)
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data[0]._id === note1_ID);
-					assert(response.data[0].accountId === user1_AccountID);
-					assert(response.data[0].title === note1_Title);
-					assert(response.data[0].body === note1_Body);
-					assert(response.data[0].archive === note1_Archive);
+			request(app)
+				.get('/tasks?token=' + user1_Token)
+				.expect(200)
+				.then(response => {
+					assert(response.body[0]._id === note1_ID);
+					assert(response.body[0].accountId === user1_AccountID);
+					assert(response.body[0].title === note1_Title);
+					assert(response.body[0].body === note1_Body);
+					assert(response.body[0].archive === note1_Archive);
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('get all tasks (no user token)', function(done) {
-			axiosInstance.get('/tasks?token=')
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.get('/tasks?token=')
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg === 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('delete first note', function(done) {
-			axiosInstance.delete('/tasks/' + note1_ID + '?token=' + user1_Token)
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data === 'ok');
+			request(app)
+				.delete('/tasks/' + note1_ID + '?token=' + user1_Token)
+				.expect(200)
+				.then(response => {
+					assert(response.body === 'ok');
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
@@ -288,189 +243,146 @@ describe('nota tests', function() {
 		// });
 
 		it('logout user', function(done) {
-			axiosInstance.post('users/logout', {
-				token: user1_Token
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data = 'Ok');
+			request(app)
+				.post('/users/logout')
+				.send({ token: user1_Token })
+				.expect(200)
+				.then(response => {
+					assert(response.body = 'Ok');
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('login user (no email address)', function(done) {
-			axiosInstance.post('/users/login', {
-				email: '',
-				password: user1_Password
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/login')
+				.send({ email: '', password: user1_Password })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg = 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('login user (no password)', function(done) {
-			axiosInstance.post('/users/login', {
-				email: user1_Email,
-				password: ''
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/login')
+				.send({ email: user1_Email, password: '' })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg = 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('login user (incorrect email address)', function(done) {
-			axiosInstance.post('/users/login', {
-				email: 'bad@bad.com',
-				password: user1_Password
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 401);
-					assert(error.response.data.msg === 'Wrong email!');
+			request(app)
+				.post('/users/login')
+				.send({ email: 'bad@bad.com', password: user1_Password })
+				.expect(401)
+				.then(response => {
+					assert(response.body.msg = 'Wrong email!');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('login user', function(done) {
-			axiosInstance.post('/users/login', {
-				email: user1_Email,
-				password: user1_Password
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert.exists(response.data.token);
+			request(app)
+				.post('/users/login')
+				.send({ email: user1_Email, password: user1_Password })
+				.expect(200)
+				.then(response => {
+					assert.exists(response.body.token);
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('logout user', function(done) {
-			axiosInstance.post('users/logout', {
-				token: user1_Token
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data = 'Ok');
+			request(app)
+				.post('/users/logout')
+				.send({ token: user1_Token })
+				.expect(200)
+				.then(response => {
+					assert(response.body = 'Ok');
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('forgot user password', function(done) {
-			axiosInstance.post('users/forgot', {
-				email: user1_Email
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data.msg = 'success. Email has been sent to your address');
+			request(app)
+				.post('/users/forgot')
+				.send({ email: user1_Email })
+				.expect(200)
+				.then(response => {
+					assert(response.body.msg = 'success. Email has been sent to your address');
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('forgot user password (no email provided)', function(done) {
-			axiosInstance.post('users/forgot', {
-				email: ''
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error);
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/forgot')
+				.send({ email: '' })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg = 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		// for user1
 		it('reset user password', function(done) {
-			axiosInstance.post('users/reset/' + user1_Email, {
-				reset_token: '1111',
-				password: 'newPass'
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert(response.data.msg = 'success. Password has been changed');
+			request(app)
+				.post('/users/reset/' + user1_Email)
+				.send({ reset_token: '1111', password: 'newPass' })
+				.expect(200)
+				.then(response => {
+					assert(response.body.msg = 'success. Password has been changed');
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('reset user password (empty reset token)', function(done) {
-			axiosInstance.post('users/reset/' + user1_Email, {
-				reset_token: '',
-				password: 'newPass'
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error);
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/reset/' + user1_Email)
+				.send({ reset_token: '', password: 'newPass' })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg = 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
 		it('reset user password (empty password)', function(done) {
-			axiosInstance.post('users/reset/' + user1_Email, {
-				reset_token: '1111',
-				password: ''
-			})
-				.then(function (response) {
-					return;
-				})
-				.catch(function (error){
-					console.log(error);
-					console.log(error.response.status);
-					console.log(error.response.data);
-					assert(error.response.status === 412);
-					assert(error.response.data.msg === 'Route requisites not met.');
+			request(app)
+				.post('/users/reset/' + user1_Email)
+				.send({ reset_token: '1111', password: '' })
+				.expect(412)
+				.then(response => {
+					assert(response.body.msg = 'Route requisites not met.');
 					done();
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 
@@ -492,19 +404,15 @@ describe('nota tests', function() {
 		// });
 
 		it('login user', function(done) {
-			axiosInstance.post('/users/login', {
-				email: user1_Email,
-				password: 'newPass'
-			})
-				.then(function (response) {
-					console.log(response.status);
-					console.log(response.data);
-					assert(response.status === 200);
-					assert.exists(response.data.token);
+			request(app)
+				.post('/users/login')
+				.send({ email: user1_Email, password: 'newPass' })
+				.expect(200)
+				.then(response => {
+					assert.exists(response.body.token);
 					done();
-				})
-				.catch(function (error){
-					console.log(error);
+				}).catch(err => {
+					console.log(err);
 				});
 		});
 	});
