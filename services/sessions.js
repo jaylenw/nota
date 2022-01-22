@@ -61,7 +61,7 @@ exports.generateSession = function(accountId, type, success, fail) {
 exports.deleteSession = function(token, success, fail) {
 	Session.findOne({
 		token: {$eq: token}
-	}).remove(function(err){
+	}).deleteOne(function(err){
 		if(err) fail(err);
 		else success();
 	});
