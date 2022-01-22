@@ -168,7 +168,7 @@ router.post('/forgot', function(req, res, next) {
 				};
 
 				let updateCmd = { $set: updatedUser };
-				User.update(matchUser, updateCmd).exec(function(err, user){
+				User.updateOne(matchUser, updateCmd).exec(function(err, user){
 					if(err){
 						res.status(500).send('Error reading database!');
 					} else if(!user) {
@@ -216,7 +216,7 @@ router.post('/reset/:email', function(req, res, next) {
 				};
 
 				let updateCmd = { $set: updatedUser };
-				User.update(matchUser, updateCmd).exec(function(err, user){
+				User.updateOne(matchUser, updateCmd).exec(function(err, user){
 					if(err){
 						res.status(500).send('Error reading database!');
 					} else if(!user) {
