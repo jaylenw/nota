@@ -1,4 +1,4 @@
-# Nota (TodoDoBackend) [![Build Status](https://travis-ci.com/jaylenw/nota.svg?branch=master)](https://travis-ci.com/jaylenw/nota) [![Coverage Status](https://coveralls.io/repos/github/jaylenw/nota/badge.svg?branch=master)](https://coveralls.io/github/jaylenw/nota?branch=master)  [![GitHub Action](https://github.com/jaylenw/nota/workflows/ESLINT/badge.svg)](https://github.com/jaylenw/nota/actions) [![Custon Snyk badge](https://img.shields.io/badge/snyk-enabled-blueviolet)](https://snyk.io/)
+# Nota (TodoDoBackend) [![Build, Test, Deploy](https://github.com/jaylenw/nota/actions/workflows/build-n-deploy.yml/badge.svg)](https://github.com/jaylenw/nota/actions/workflows/build-n-deploy.yml) [![GitHub Action](https://github.com/jaylenw/nota/workflows/ESLINT/badge.svg)](https://github.com/jaylenw/nota/actions) [![Coverage Status](https://coveralls.io/repos/github/jaylenw/nota/badge.svg?branch=master)](https://coveralls.io/github/jaylenw/nota?branch=master) [![Custon Snyk badge](https://img.shields.io/badge/snyk-enabled-blueviolet)](https://snyk.io/)
 
 ![](https://github.com/jaylenw/nota/raw/master/screenshots/nota.png)
 
