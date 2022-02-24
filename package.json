@@ -16,7 +16,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "debug": "^4.3.3",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "mailgun-js": "^0.22.0",
     "moment": "^2.29.1",
     "mongoose": "^6.2.0",
