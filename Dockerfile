@@ -6,7 +6,7 @@
 # when tests have passed
 
 # create deployment stage
-FROM ubuntu:22.04 AS deployment
+FROM ubuntu:22.10 AS deployment
 
 # fetch latest updates and autoclean the cache dependencies
 RUN apt update -y && apt upgrade -y && apt full-upgrade -y \
